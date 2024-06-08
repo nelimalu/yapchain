@@ -6,6 +6,18 @@ canvas.height = window.innerHeight;
 var c = canvas.getContext('2d');
 c.imageSmoothingEnabled = false;
 
+function rectanglesIntersect( 
+  minAx, minAy, maxAx, maxAy,
+  minBx, minBy, maxBx, maxBy ) {
+  let aLeftOfB = maxAx < minBx;
+  let aRightOfB = minAx > maxBx;
+  let aAboveB = minAy > maxBy;
+  let aBelowB = maxAy < minBy;
+
+  return !( aLeftOfB || aRightOfB || aAboveB || aBelowB );
+}
+
+
 
 function Sprite(image, x, y, width, height, src_x, src_y, src_width, src_height) {
   // x, y, width, height is used to resize the image
@@ -73,6 +85,7 @@ class SpeechBubble {
 }
 
 
+
 class Player {
   constructor() {
     this.x = window.innerWidth / 2 - 8 * pscale;
@@ -120,21 +133,43 @@ class Player {
       this.playersprites[this.prevdir].draw();
     }
 
-
-
-    if (this.pressed[0]) { // left
-      background.x += velocity;
+    //check if the boy touches a side
+    //if the side plus it's pixel velocity (rectangles[i][0]) meets the feet of the
+    velocity = 3; 
+    for(let a = 0; a < rectangles.length; a++) {
+      if(rectanglesIntersect( rectangles[a][0], rectangles[a][1], rectangles[a][0]+rectangles[a][3], rectangles[a][1]+rectangles[a][4],
+        -80, -400, -80+ 1906 * 4, -400 + 1058 * 4
+      )) {
+        velocity = 0;
+        console.log("yes");
+      }
     }
+
+
+
+    if (this.pressed[0] ) { // left
+      background.x += velocity;
+      for (let i = 0; i < rectangles.length; i++) {
+        rectangles[i][0]+=velocity;
+      }
+    } 
     if (this.pressed[1]) { // right
       background.x -= velocity;
-
+      for (let i = 0; i < rectangles.length; i++) {
+        rectangles[i][0]-=velocity;
+      }
     }
     if (this.pressed[2]) { // up
       background.y += velocity;
-
+      for (let i = 0; i < rectangles.length; i++) {
+        rectangles[i][1]+=velocity;
+      }
     }
-    if (this.pressed[3]) { // down
+    if (this.pressed[3] ) { // down
       background.y -= velocity;
+      for (let i = 0; i < rectangles.length; i++) {
+        rectangles[i][1]-=velocity;
+      }
     }
   }
 
@@ -165,6 +200,9 @@ window.addEventListener("keydown", function(event) {
 
 });
 
+
+
+
 window.addEventListener("keyup", function(event) {
     if (event.key == "w" || event.key == "ArrowUp") {
       player.pressed[2] = false;
@@ -184,21 +222,43 @@ window.addEventListener("keyup", function(event) {
 });
 
 
+var rectangles = [
+  //[x, y, len, wid]
+  // [-40, 20, 350,10],
+  // [280, 20, 10,180],
+  // [-35, 20, 10, 600],
+  // [-35, 610, 1350, 10],
+  // [-35, 610, 1000, 10],
+  // [965, 610, 1000, 10],
+
+
+
+
+];
+
+
+
+
+
+
 var player = new Player();
 var frame = 0;
 function animate() {
   requestAnimationFrame(animate);
-  c.clearRect(0, 0, innerWidth, innerHeight);
+  // c.clearRect(0, 0, innerWidth, innerHeight);
   c.fillStyle = "black";
-  c.fillRect(0, 0, canvas.width, canvas.height);
   background.draw();
-
   frame++;
   if (frame % 10 == 0) {
     player.cycle++;
     player.cycle %= 3;
   }
   player.draw();
+  c.fillStyle = "red";
+  for (let i = 0; i < rectangles.length; i++) {
+    c.fillRect(rectangles[i][0], rectangles[i][1], rectangles[i][2], rectangles[i][3]);
+  }
+
 
   player.speak("fuck you")
 }

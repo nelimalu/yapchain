@@ -1,7 +1,7 @@
 //button.js
 import Link from 'next/link';
 import { useEffect, useState, useContext } from 'react';
-
+import { redirect } from 'next/navigation';
 import { NearContext } from '@/context';
 
 export default function Button() {
@@ -15,6 +15,7 @@ export default function Button() {
       if (signedAccountId) {
         setAction(() => wallet.signOut);
         setLabel(`Logout ${signedAccountId}`);
+        redirect('/yapper')
       } else {
         setAction(() => wallet.signIn);
         setLabel('Login');

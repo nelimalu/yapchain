@@ -22,7 +22,7 @@ export default function Button() {
     }, [signedAccountId, wallet]);
     return (
         <div className='navbar-nav pt-1'>
-          <button className="btn btn-secondary" onClick={action} > {label} </button>
+          <button className="btn pixel-corners btn-secondary" onClick={action} > {label} </button>
         </div>
     )
 }

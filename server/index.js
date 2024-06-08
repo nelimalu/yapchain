@@ -15,12 +15,21 @@ app.get("/message", (req, res) => {
     res.send("I GOT YOUR MESSAGE!!!");
 });
 
+app.post("/join", (req, res) => {
+
+});
+
+app.post("/leave", (req, res) => {
+
+});
+
 app.post("/coords", (req, res) => {
-    console.log("Received POST request with coordinates");
+    //console.log("Received POST request with coordinates");
     let x = req.body.x;
     let y = req.body.y;
     console.log("Coordinates received:", x, y);
     res.json({ x, y });
+    res.send({});
 });
 
 app.listen(2000, () => {

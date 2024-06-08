@@ -26,7 +26,7 @@ const htmlContent = `
         </style>
     </head>
     <body>
-        <canvas></canvas>
+        <canvas width="1000" height="1000"></canvas>
         <script>
             var canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;

@@ -93,3 +93,137 @@ a {
     color-scheme: dark;
   }
 }
+@font-face{
+    font-family: Pixel;
+    src: url("../../public/HomeVideo-BLG6G.ttf")
+}
+.pixel-corners,
+.pixel-corners--wrapper {
+  clip-path: polygon(0px calc(100% - 8px),
+    4px calc(100% - 8px),
+    4px calc(100% - 4px),
+    8px calc(100% - 4px),
+    8px 100%,
+    calc(100% - 8px) 100%,
+    calc(100% - 8px) calc(100% - 4px),
+    calc(100% - 4px) calc(100% - 4px),
+    calc(100% - 4px) calc(100% - 8px),
+    100% calc(100% - 8px),
+    100% 8px,
+    calc(100% - 4px) 8px,
+    calc(100% - 4px) 4px,
+    calc(100% - 8px) 4px,
+    calc(100% - 8px) 0px,
+    8px 0px,
+    8px 4px,
+    4px 4px,
+    4px 8px,
+    0px 8px);
+  position: relative;
+}
+.pixel-corners {
+  border: 8px solid transparent;
+}
+.pixel-corners--wrapper {
+  width: fit-content;
+  height: fit-content;
+}
+.pixel-corners--wrapper .pixel-corners {
+  display: block;
+  clip-path: polygon(8px 12px,
+    12px 12px,
+    12px 8px,
+    calc(100% - 12px) 8px,
+    calc(100% - 12px) 12px,
+    calc(100% - 8px) 12px,
+    calc(100% - 8px) calc(100% - 12px),
+    calc(100% - 12px) calc(100% - 12px),
+    calc(100% - 12px) calc(100% - 8px),
+    12px calc(100% - 8px),
+    12px calc(100% - 12px),
+    8px calc(100% - 12px));
+}
+
+input:active, input:focus {
+    outline: none !important;
+}
+body {
+    background-image: url("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/mnIntro1.png");
+    background-size: cover; 
+    z-index: -1;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated;                 /* Universal support since 2021   */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+}
+
+.login {
+    background-image: url("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/yellowbg1.png") ;
+    background-size: 100%;
+    background-repeat: no-repeat; 
+    font-family: Pixel;
+    min-width: 24rem;
+    min-height: 24rem;
+    padding: 2rem 2rem 0rem 2rem;
+    image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;          /* Firefox                        */
+    image-rendering: -o-crisp-edges;            /* Opera                          */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated;                 /* Universal support since 2021   */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+}
+.px-2{
+    padding: 0.25rem 0.5rem;
+}
+.font-bold{
+    font-weight: bold;
+}
+.submit {
+    background-image: url("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/ycLoginEnter.png");
+    background-repeat: no-repeat;
+    background-size: 26%;
+    background-position: center;
+    min-width: fit-content;
+    padding: 16px;
+}
+.submit p {
+    transform: translateY(-10%);
+}
+.transition-page{
+    position: absolute;
+    height: 100vh;
+    animation: transition 0.6s ease-in-out forwards;
+    /* border-top:  rgb(232, 161, 18) solid 32px; */
+}
+.w-full {
+    width: 100%;
+}
+.flex {
+    display: flex;
+}
+.flex-col {
+    flex-direction: column;
+}
+.items-center {
+    align-items: center;
+}
+.justify-center {
+    justify-content: center;
+}
+.gap-4 {
+    gap: 1rem;
+}
+@keyframes transition {
+    from {
+        bottom: -100%;
+    } to {
+        bottom: 0;
+    }
+}

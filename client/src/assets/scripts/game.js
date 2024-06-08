@@ -31,11 +31,11 @@ function Sprite(image, x, y, width, height, src_x, src_y, src_width, src_height)
 
 var pscale = 5;
 var velocity = 3;
-var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -100, -100, 1906, 1058, 0, 0, 1906, 1058);
+var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
 var speechSprites = [
-  new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/ycBoxS.png"),
-  new Sprite(),
-  new Sprite()
+  new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/ycBoxS.png", 0, 0, 35, 27, 0, 0, 35, 27),
+  new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/ycBoxM.png", 0, 0, 35, 48, 0, 0, 35, 48),
+  new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/ycBoxL.png", 0, 0, 35, 72, 0, 0, 35, 72)
 ];
 
 class SpeechBubble {
@@ -51,6 +51,10 @@ class SpeechBubble {
     if (this.text.length > 30)
       return 1;
     return 0;
+  }
+
+  draw() {
+    this.sprite.draw();
   }
 
 }
@@ -78,23 +82,28 @@ class Player {
       new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMRight2.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22)
     ];
     this.cycle = 0;
+    this.prevdir = 0;
   }
 
   draw() {
     if (this.pressed[0]) { // left
       this.playersprites[6 + this.cycle].draw();
+      this.prevdir = 6;
     }
     else if (this.pressed[1]) { // right
       this.playersprites[9 + this.cycle].draw();
+      this.prevdir = 9;
     }
     else if (this.pressed[2]) { // up
       this.playersprites[3 + this.cycle].draw();
+      this.prevdir = 3;
     }
     else if (this.pressed[3]) { // down
       this.playersprites[0 + this.cycle].draw();
+      this.prevdir = 0;
     }
     else {
-      this.playersprites[0].draw();
+      this.playersprites[this.prevdir].draw();
     }
 
 
@@ -156,12 +165,14 @@ window.addEventListener("keyup", function(event) {
 });
 
 
-
+var speech = new SpeechBubble("FUCK YOU");
 var player = new Player();
 var frame = 0;
 function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, innerWidth, innerHeight);
+  c.fillStyle = "black";
+  c.fillRect(0, 0, canvas.width, canvas.height);
   background.draw();
 
   frame++;

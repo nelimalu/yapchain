@@ -63,7 +63,7 @@ function Sprite(image, x, y, width, height, src_x, src_y, src_width, src_height)
 
 var pscale = 5;
 var velocity = 3;
-var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -100, -200, 1906, 1058, 0, 0, 1906, 1058);
+var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", 0, -300, 1906, 1058, 0, 0, 1906, 1058);
 
 class Player {
 
@@ -148,6 +148,11 @@ window.addEventListener("keydown", function(event) {
 
   if (event.key == "d" || event.key == "ArrowRight") {  // D key
     player.pressed[1] = true;
+  }
+
+  if (event.key == "Enter") {
+    console.log("entaaaaaa")
+    console.log(player.x)
   }
 
 });

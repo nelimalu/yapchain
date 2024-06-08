@@ -90,7 +90,7 @@ class Player {
     this.cycle = 0;
     this.lastpress = 0;
   }
-
+    
   draw() {
     if (this.pressed[0]) { // left
       this.playersprites[6 + this.cycle].draw();

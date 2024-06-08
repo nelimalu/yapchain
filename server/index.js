@@ -29,9 +29,11 @@ app.post("/coords", (req, res) => {
     //console.log("Received POST request with coordinates");
     let x = req.body.x;
     let y = req.body.y;
-    console.log("Coordinates received:", x, y);
-    res.json({ x, y });
-    res.send({});
+    let direction = req.body.direction;
+    
+    console.log("Coordinates received:", x, y, direction);
+
+    res.send({x,y,direction});
 });
 
 app.listen(2000, () => {

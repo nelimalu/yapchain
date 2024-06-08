@@ -139,7 +139,7 @@ window.onload = function() {
      const response = await fetch('http://localhost:2000/coords', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ x: background.x, y:background.y })
+        body: JSON.stringify({ x: background.x, y:background.y, direction:player.direction })
     });
 
     console.log(response)
@@ -147,7 +147,7 @@ window.onload = function() {
 
   setInterval(function() {
     tryCoords();
-  },10);
+  },1000);
 };
 
 
@@ -232,7 +232,7 @@ function Canvas() {
                 style={{ width: '100vw', height: '100vh', border: 'none' }}
             />
             <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center", "position": "absolute", "zIndex": "10", "top": "0", "left": "0"}}>
-                <input name='yap' className='yap-input'/>
+                <input name='yap' className='yap-input pixel-corners'/>
             </div>
         </>
         

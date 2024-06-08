@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import '@/styles/globals.css';
+import '../styles/login.css';
 import { NearContext } from '@/context';
 import { Navigation } from '@/components/navigation';
 

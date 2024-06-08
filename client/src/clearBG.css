@@ -1,0 +1,14 @@
+body{
+    background-color: white!important;
+    background-image: none;
+}
+.hi {
+    background-image: url(./assets/images/mail.png);
+    background-size: cover;
+    width: 56px;
+    height: 45px;
+    position: absolute;
+    z-index: 10;
+    right: 128px;
+    top: 32px;
+}

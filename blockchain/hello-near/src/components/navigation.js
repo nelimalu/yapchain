@@ -9,13 +9,6 @@ export const Navigation = () => {
  
 
   return (
-    <nav className="navbar navbar-expand-lg">
-      <div className="container-fluid">
-        <Link href="/" passHref legacyBehavior>
-          <Image priority src={NearLogo} alt="NEAR" width="30" height="24" className="d-inline-block align-text-top" />
-        </Link>
-
-      </div>
-    </nav>
+    <></>
   );
 };

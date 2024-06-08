@@ -114,6 +114,9 @@ class Player {
     }
   }
 }
+
+
+
 window.onload = function() {
   const tryCoords = async () => {
      const response = await fetch('http://localhost:2000/coords', {
@@ -127,6 +130,9 @@ window.onload = function() {
     tryCoords();
   },1000);
 };
+
+
+
 window.addEventListener("keydown", function(event) {
   if (event.key == "w" || event.key == "ArrowUp") {  // W key
   player.direction = "up-moving"

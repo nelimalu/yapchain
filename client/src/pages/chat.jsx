@@ -150,6 +150,21 @@ window.addEventListener("keydown", function(event) {
     player.pressed[1] = true;
   }
 
+    const tryCoords = async () => {
+             const response = await fetch('http://localhost:2000/coords', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ x: background.x, y:background.y })
+            });
+
+            console.log(response)
+        }
+
+  if (event.key == "Enter") {
+    tryCoords()
+    console.log("hudasioasd")
+    console.log(background.x, background.y, "dasdas")
+  }
 });
 
 window.addEventListener("keyup", function(event) {

@@ -25,7 +25,7 @@ app.post("/leave", (req, res) => {
 
 });
 
-app.
+
 
 app.post("/coords", (req, res) => {
     //console.log("Received POST request with coordinates");

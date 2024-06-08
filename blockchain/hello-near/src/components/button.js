@@ -14,7 +14,7 @@ export default function Button() {
 
       if (signedAccountId) {
         setAction(() => wallet.signOut);
-        setLabel(Logout ${signedAccountId});
+        setLabel(`Logout ${signedAccountId}`);
       } else {
         setAction(() => wallet.signIn);
         setLabel('Login');

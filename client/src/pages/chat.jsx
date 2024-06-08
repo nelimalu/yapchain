@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import '../clearBG.css';
-
+import '../chat.css'
 const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -23,7 +23,7 @@ const htmlContent = `
             canvas {
               margin: 0;
               padding: 0;
-              height: 100vh
+              height: 100vh;
               overflow: hidden;
             }
         </style>
@@ -217,11 +217,17 @@ animate();
 
 function Canvas() {
     return (
-        <iframe
-            title="HTML Content"
-            srcDoc={htmlContent}
-            style={{ width: '100vw', height: '100vh', border: 'none' }}
-        />
+        <>
+            <iframe
+                title="HTML Content"
+                srcDoc={htmlContent}
+                style={{ width: '100vw', height: '100vh', border: 'none' }}
+            />
+            <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center", "position": "absolute", "zIndex": "10", "top": "0", "left": "0"}}>
+                <input name='yap' className='yap-input'/>
+            </div>
+        </>
+        
     );
 }
 

@@ -1,12 +1,42 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { Component } from 'react';
 import '../clearBG.css';
 
-const Canvas = props => {
-  const canvasRef = useRef(null);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const keysPressed = useRef({});
+class Canvas extends Component {
+  constructor(props) {
+    super(props);
+    this.canvasRef = React.createRef();
+    this.keysPressed = {};
+    this.offset = { x: 0, y: 0 };
+    this.objectsPositions = [];
+  }
 
-  const draw = (ctx, frameCount) => {
+  componentDidMount() {
+    this.renderCanvas();
+    window.addEventListener('keydown', this.handleKeyDown);
+    window.addEventListener('keyup', this.handleKeyUp);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('keyup', this.handleKeyUp);
+    cancelAnimationFrame(this.animationFrameId);
+  }
+
+  renderCanvas = () => {
+    const canvas = this.canvasRef.current;
+    const context = canvas.getContext('2d');
+    let frameCount = 0;
+
+    const render = () => {
+      frameCount++;
+      this.draw(context, frameCount);
+      this.animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+  };
+
+  draw = (ctx, frameCount) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     // Draw the main character (circle) at the center of the canvas
@@ -19,82 +49,84 @@ const Canvas = props => {
     ctx.fill();
 
     // Draw other objects relative to the main character
-    drawOtherObjects(ctx, offset, centerX, centerY);
+    this.drawOtherObjects(ctx, this.offset, centerX, centerY);
   };
 
-  const drawOtherObjects = (ctx, offset, centerX, centerY) => {
-    ctx.fillStyle = "#FF0000";
+  drawOtherObjects = (ctx, offset, centerX, centerY) => {
+    ctx.fillStyle = '#FF0000';
 
-    // Example object
+    // Example object 1
+    const object1 = {
+      x: centerX + 100 - offset.x,
+      y: centerY + 50 - offset.y,
+      width: 40,
+      height: 40,
+    };
     ctx.beginPath();
-    ctx.rect(centerX + 100 - offset.x, centerY + 50 - offset.y, 40, 40);
+    ctx.rect(object1.x, object1.y, object1.width, object1.height);
     ctx.fill();
 
+    // Example object 2
+    const object2 = {
+      x: centerX + 160 - offset.x,
+      y: centerY - 50 - offset.y,
+      width: 40,
+      height: 40,
+    };
     ctx.beginPath();
-    ctx.rect(centerX + 160 - offset.x, centerY - 50 - offset.y, 40, 40);
+    ctx.rect(object2.x, object2.y, object2.width, object2.height);
     ctx.fill();
-    // Add more objects as needed
+
+    // Store positions
+    this.objectsPositions = [object1, object2];
   };
 
-  const handleKeyDown = (event) => {
-    keysPressed.current[event.key] = true;
-    updateOffset();
+  handleKeyDown = (event) => {
+    this.keysPressed[event.key] = true;
+    this.updateOffset();
   };
 
-  const handleKeyUp = (event) => {
-    keysPressed.current[event.key] = false;
-    updateOffset();
+  handleKeyUp = (event) => {
+    this.keysPressed[event.key] = false;
+    this.updateOffset();
   };
 
-  const updateOffset = () => {
-    setOffset(prev => {
-      let newOffsetX = prev.x;
-      let newOffsetY = prev.y;
+  updateOffset = () => {
+    this.setState(prevState => {
+    let newOffsetX = prevState ? prevState.offset.x : 0;
+    let newOffsetY = prevState ? prevState.offset.y : 0;
 
-      if (keysPressed.current['ArrowUp']) {
+      if (this.keysPressed['ArrowUp']) {
+        console.log("iojpadsijdsaijoasdoijadsoij")
         newOffsetY -= 5;
       }
-      if (keysPressed.current['ArrowDown']) {
+      if (this.keysPressed['ArrowDown']) {
         newOffsetY += 5;
       }
-      if (keysPressed.current['ArrowLeft']) {
+      if (this.keysPressed['ArrowLeft']) {
         newOffsetX -= 5;
       }
-      if (keysPressed.current['ArrowRight']) {
+      if (this.keysPressed['ArrowRight']) {
         newOffsetX += 5;
       }
-      if (keysPressed.current['Enter']) {
-        console.log()
+      if (this.keysPressed['Enter']) {
+        console.log(this.objectsPositions);
       }
 
-      return { x: newOffsetX, y: newOffsetY };
+      return { offset: { x: newOffsetX, y: newOffsetY } };
     });
   };
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-    let frameCount = 0;
-    let animationFrameId;
-
-    const render = () => {
-      frameCount++;
-      draw(context, frameCount);
-      animationFrameId = window.requestAnimationFrame(render);
-    };
-    render();
-
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyUp);
-
-    return () => {
-      window.cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('keyup', handleKeyUp);
-    };
-  }, [draw]);
-
-  return <canvas ref={canvasRef} width={800} height={600} {...props} />;
-};
+  render() {
+    return (
+      <>
+        <canvas ref={this.canvasRef} width={800} height={600} {...this.props} />
+        <div className="rounded-full">
+          <div className="hi"> </div>
+        </div>
+      </>
+    );
+  }
+}
 
 export default Canvas;

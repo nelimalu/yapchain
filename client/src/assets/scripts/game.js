@@ -45,6 +45,7 @@ var speechscale = 4;
 var pscale = 5;
 var velocity = 3;
 var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
+var foreground = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/foreground.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
 var speechSprites = [
   ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/smallbox.png", -110, -75, 75 * speechscale, 18 * speechscale, 0, 0, 75, 18],
   ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/mediumbox.png", -210, -75, 125 * speechscale, 18 * speechscale, 0, 0, 125, 18],
@@ -258,9 +259,8 @@ function animate() {
   for (let i = 0; i < rectangles.length; i++) {
     c.fillRect(rectangles[i][0], rectangles[i][1], rectangles[i][2], rectangles[i][3]);
   }
-
-
   player.speak("fuck you")
+  foreground.draw();
 }
 
 animate();

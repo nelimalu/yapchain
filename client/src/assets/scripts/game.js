@@ -32,9 +32,31 @@ function Sprite(image, x, y, width, height, src_x, src_y, src_width, src_height)
 var pscale = 5;
 var velocity = 3;
 var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -100, -100, 1906, 1058, 0, 0, 1906, 1058);
+var speechSprites = [
+  new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/ycBoxS.png"),
+  new Sprite(),
+  new Sprite()
+];
+
+class SpeechBubble {
+
+  constructor(text) {
+    this.text = text;
+    this.sprite = speechSprites[this.getSize()];
+  }
+
+  getSize() {
+    if (this.text.length > 50)
+      return 2;
+    if (this.text.length > 30)
+      return 1;
+    return 0;
+  }
+
+}
+
 
 class Player {
-
   constructor() {
     this.x = window.innerWidth / 2 - 8 * pscale;
     this.y = window.innerHeight / 2 - 11 * pscale;

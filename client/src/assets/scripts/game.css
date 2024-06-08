@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'homevideo';
+    src: url('https://github.com/nelimalu/yapchain/blob/main/client/src/assets/fonts/HomeVideo-BLG6G.ttf');
+}
+
 html {
 	margin: 0;
 	padding: 0;

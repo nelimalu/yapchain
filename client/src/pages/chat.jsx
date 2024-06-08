@@ -200,7 +200,6 @@ function Canvas() {
                 style={{ width: '100vw', height: '100vh', border: 'none' }}
             />
             <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center", "position": "absolute", "zIndex": "10", "top": "0", "left": "0"}}>
-                <input name='yap' className='yap-input pixel-corners'/>
                 <input maxLength={75} name='yap' className='yap-input pixel-corners'/>
             </div>
         </>

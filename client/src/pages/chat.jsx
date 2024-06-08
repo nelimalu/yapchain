@@ -46,25 +46,31 @@ class Canvas extends Component {
 
     const { playerPosition, objectsPositions } = this.state;
 
-    // Draw the main character (circle) at the center of the canvas
-    const centerX = playerPosition.x;
-    const centerY = playerPosition.y;
+    var imageObj1 = new Image();
+    imageObj1.src = 'https://s-media-cache-ak0.pinimg.com/236x/d7/b3/cf/d7b3cfe04c2dc44400547ea6ef94ba35.jpg'
+ imageObj1.onload = function() {
+        ctx.drawImage(imageObj1,0,0, 500, 500);
+ }
+    // Calculate the center of the canvas
+    const canvasCenterX = ctx.canvas.width / 2;
+    const canvasCenterY = ctx.canvas.height / 2;
 
+    // Draw the main character (circle) at the center of the canvas
     ctx.fillStyle = '#000000';
     ctx.beginPath();
-    ctx.arc(centerX, centerY, 20, 0, 2 * Math.PI);
+    ctx.arc(canvasCenterX, canvasCenterY, 20, 0, 2 * Math.PI);
     ctx.fill();
 
     // Draw other objects relative to the main character
-    this.drawOtherObjects(ctx, objectsPositions, playerPosition);
+    this.drawOtherObjects(ctx, objectsPositions, playerPosition, canvasCenterX, canvasCenterY);
   };
 
-  drawOtherObjects = (ctx, objectsPositions, playerPosition) => {
+  drawOtherObjects = (ctx, objectsPositions, playerPosition, canvasCenterX, canvasCenterY) => {
     ctx.fillStyle = '#FF0000';
 
     objectsPositions.forEach((obj) => {
       ctx.beginPath();
-      ctx.rect(obj.x - playerPosition.x + 400, obj.y - playerPosition.y + 300, obj.width, obj.height);
+      ctx.rect(canvasCenterX + obj.x - playerPosition.x, canvasCenterY + obj.y - playerPosition.y, obj.width, obj.height);
       ctx.fill();
     });
   };

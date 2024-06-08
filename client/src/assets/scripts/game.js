@@ -29,24 +29,33 @@ function Sprite(image, x, y, width, height, src_x, src_y, src_width, src_height)
   }
 }
 
+var speechscale = 4;
 var pscale = 5;
 var velocity = 3;
 var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
 var speechSprites = [
-  new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/ycBoxS.png", 0, 0, 35, 27, 0, 0, 35, 27),
-  new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/ycBoxM.png", 0, 0, 35, 48, 0, 0, 35, 48),
-  new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/ycBoxL.png", 0, 0, 35, 72, 0, 0, 35, 72)
+  ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/smallbox.png", -110, -75, 75 * speechscale, 18 * speechscale, 0, 0, 75, 18],
+  ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/mediumbox.png", -210, -75, 125 * speechscale, 18 * speechscale, 0, 0, 125, 18],
+  ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/largebox.png", -310, -75, 175 * speechscale, 18 * speechscale, 0, 0, 175, 18]
 ];
 
 class SpeechBubble {
 
-  constructor(text) {
+  constructor(text, x, y) {
     this.text = text;
-    this.sprite = speechSprites[this.getSize()];
+    if (this.text.length > 75)
+      this.text = this.text.substring(0, 75) + "...";
+    this.x = x;
+    this.y = y;
+    this.sprite = new Sprite(...speechSprites[this.getSize()]);
+    this.sprite.x += this.x;
+    this.sprite.y += this.y;
+    this.sprite.wx *= 2.5;
+    this.sprite.wy *= 2.5;
   }
 
   getSize() {
-    if (this.text.length > 50)
+    if (this.text.length > 55)
       return 2;
     if (this.text.length > 30)
       return 1;
@@ -55,6 +64,10 @@ class SpeechBubble {
 
   draw() {
     this.sprite.draw();
+    c.font = "16px Trebuchet MS";
+    c.textAlign = 'center';
+    c.fillStyle = 'black'
+    c.fillText(this.text, this.x + 40, this.y - 46);
   }
 
 }
@@ -83,6 +96,7 @@ class Player {
     ];
     this.cycle = 0;
     this.prevdir = 0;
+    this.message = undefined;
   }
 
   draw() {
@@ -122,6 +136,11 @@ class Player {
     if (this.pressed[3]) { // down
       background.y -= velocity;
     }
+  }
+
+  speak(text) {
+    this.message = new SpeechBubble(text, this.x, this.y);
+    this.message.draw();
   }
 
 }
@@ -165,7 +184,6 @@ window.addEventListener("keyup", function(event) {
 });
 
 
-var speech = new SpeechBubble("FUCK YOU");
 var player = new Player();
 var frame = 0;
 function animate() {
@@ -180,9 +198,9 @@ function animate() {
     player.cycle++;
     player.cycle %= 3;
   }
-  console.log(player.cycle)
   player.draw();
 
+  player.speak("fuck you")
 }
 
 animate();

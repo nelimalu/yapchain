@@ -78,7 +78,7 @@ class SpeechBubble {
     this.sprite.draw();
     c.font = "16px Trebuchet MS";
     c.textAlign = 'center';
-    c.fillStyle = 'black'
+    c.fillStyle = 'black';
     c.fillText(this.text, this.x + 40, this.y - 46);
   }
 
@@ -113,6 +113,8 @@ class Player {
   }
 
   draw() {
+    // console.log(player.x, player.y, player.x+16, player.y+22);
+    // console.log(player.x, player.y, this.x, this.y);  
     if (this.pressed[0]) { // left
       this.playersprites[6 + this.cycle].draw();
       this.prevdir = 6;
@@ -135,13 +137,17 @@ class Player {
 
     //check if the boy touches a side
     //if the side plus it's pixel velocity (rectangles[i][0]) meets the feet of the
-    velocity = 3; 
+
+    
+    console.log("this is intersecting ", rectanglesIntersect(player.x, player.y, player.x+16+3, player.y+22+3, -100, -100, 300, 300));
+    c.fillRect(player.x, player.y, 16*5, 22*5);
+
     for(let a = 0; a < rectangles.length; a++) {
       if(rectanglesIntersect( rectangles[a][0], rectangles[a][1], rectangles[a][0]+rectangles[a][3], rectangles[a][1]+rectangles[a][4],
-        -80, -400, -80+ 1906 * 4, -400 + 1058 * 4
+        player.x, player.y, player.x+16, player.y+22        
       )) {
-        velocity = 0;
-        console.log("yes");
+        player.x = this.x;
+        player.y = this.y;
       }
     }
 
@@ -224,14 +230,13 @@ window.addEventListener("keyup", function(event) {
 
 var rectangles = [
   //[x, y, len, wid]
-  // [-40, 20, 350,10],
-  // [280, 20, 10,180],
-  // [-35, 20, 10, 600],
-  // [-35, 610, 1350, 10],
-  // [-35, 610, 1000, 10],
-  // [965, 610, 1000, 10],
-
-
+  [-40, 20, 350,10],
+  [280, 20, 10,180],
+  [-35, 20, 10, 600],
+  [-35, 610, 1350, 10],
+  [-35, 610, 1000, 10],
+  [965, 610, 1000, 10],
+  [-100,-100,300,300],
 
 
 ];

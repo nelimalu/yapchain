@@ -1,7 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { NearContext } from '@/context';
 
 export default function Yapper() {
   const [iframeKey, setIframeKey] = useState(0);
+  const { signedAccountId, wallet } = useContext(NearContext);
+
+  const [greeting, setGreeting] = useState('[]');
+  const [newGreeting, setNewGreeting] = useState('[]');
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
+
+  const getGreeting = async () => {
+    if (!wallet) return;
+
+    await wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' }).then(
+      console.log("got the greeting!")
+    ).then(
+      greeting => setGreeting(greeting)
+    );
+  };
+
+  const saveGreeting = async () => {
+    setShowSpinner(true);
+    await wallet.callMethod({ contractId: CONTRACT, method: 'set_greeting', args: { greeting: newGreeting, time: Date.now() } });
+    const greeting = await wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' });
+    setGreeting(greeting);
+    setShowSpinner(false);
+  };
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -48,6 +73,7 @@ export default function Yapper() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             var c = canvas.getContext('2d');
+            var players = {};
             c.imageSmoothingEnabled = false;
 
             function Sprite(image, x, y, width, height, src_x, src_y, src_width, src_height) {
@@ -132,6 +158,22 @@ export default function Yapper() {
               }
             }
 
+            window.onload = function() {
+
+              const tryCoords = async () => {
+                console.log("${signedAccountId}")
+                 const response = await fetch('http://localhost:2000/coords', {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ id: "${signedAccountId}", x: background.x + window.innerWidth / 2, y:background.y + window.innerHeight / 2, direction:player.direction })
+                });
+                console.log(response.json())
+              }
+              setInterval(function() {
+                tryCoords();
+              },1000);
+            };
+
             window.addEventListener("keydown", function(event) {
               if (event.key == "w" || event.key == "ArrowUp") {  // W key
                 player.direction = "up-moving"
@@ -184,8 +226,16 @@ export default function Yapper() {
                 player.cycle++;
                 player.cycle %= 3;
               }
-              console.log(player.direction)
-              player.draw();
+
+              Object.keys(players).forEach(function(key) {
+                  console.log(key, players[key]);
+                  player.playersprites[0].draw();
+                  new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMForward.png",
+                              players[key].x, players[key].y, 16 * 5, 22 * 5, 0, 0, 16, 22).draw();
+              });
+
+              //console.log(player.direction)
+              //player.draw();
             }
 
             animate();

@@ -9,17 +9,21 @@ const htmlContent = `
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>ChainGame</title>
         <style>
-            body, html {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
+            html {
+              margin: 0;
+              padding: 0;
+              overflow: hidden;
             }
+
+            body {
+              margin: 0;
+            }
+
             canvas {
-                width: 100%;
-                height: 100%;
-                display: block;
+              margin: 0;
+              padding: 0;
+              height: 100vh
+              overflow: hidden;
             }
         </style>
     </head>
@@ -59,7 +63,7 @@ function Sprite(image, x, y, width, height, src_x, src_y, src_width, src_height)
 
 var pscale = 5;
 var velocity = 3;
-var background = new Sprite("./../images/background.png", -100, -100, 1906, 1058, 0, 0, 1906, 1058);
+var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -100, -200, 1906, 1058, 0, 0, 1906, 1058);
 
 class Player {
 
@@ -70,37 +74,42 @@ class Player {
     this.height = 22 * pscale;
     this.pressed = [false, false, false, false];  // left right up down
     this.playersprites = [
-      new Sprite("./ycSpriteMForward.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
-    //   new Sprite("./../images/character/ycSpriteMForward1.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
-    //   new Sprite("./../images/character/ycSpriteMForward2.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
-    //   new Sprite("./../images/character/ycSpriteMBackward.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
-    //   new Sprite("./../images/character/ycSpriteMBackward1.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
-    //   new Sprite("./../images/character/ycSpriteMBackward2.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
-    //   new Sprite("./../images/character/ycSpriteMLeft.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
-    //   new Sprite("./../images/character/ycSpriteMLeft1.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
-    //   new Sprite("./../images/character/ycSpriteMLeft2.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
-    //   new Sprite("./../images/character/ycSpriteMRight.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
-    //   new Sprite("./../images/character/ycSpriteMRight1.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
-    //   new Sprite("./../images/character/ycSpriteMRight2.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22)
+      new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMForward.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
+      new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMForward1.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
+      new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMForward2.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
+      new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMBackward.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
+      new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMBackward1.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
+      new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMBackward2.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
+      new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMLeft.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
+      new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMLeft1.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
+      new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMLeft2.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
+      new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMRight.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
+      new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMRight1.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22),
+      new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMRight2.png", this.x, this.y, this.width, this.height, 0, 0, 16, 22)
     ];
     this.cycle = 0;
+    this.lastpress = 0;
   }
 
   draw() {
     if (this.pressed[0]) { // left
       this.playersprites[6 + this.cycle].draw();
+      this.lastpress = 6;
     }
     else if (this.pressed[1]) { // right
       this.playersprites[9 + this.cycle].draw();
+      this.lastpress = 9;
     }
     else if (this.pressed[2]) { // up
       this.playersprites[3 + this.cycle].draw();
+      this.lastpress = 3;
     }
     else if (this.pressed[3]) { // down
       this.playersprites[0 + this.cycle].draw();
+      this.lastpress = 0;
     }
     else {
-      this.playersprites[0].draw();
+      this.playersprites[this.lastpress].draw();
     }
 
 
@@ -168,6 +177,8 @@ var frame = 0;
 function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, innerWidth, innerHeight);
+  c.fillStyle = "black";
+  c.fillRect(0, 0, canvas.width, canvas.height);
   background.draw();
 
   frame++;
@@ -180,7 +191,8 @@ function animate() {
 
 }
 
-animate();  
+animate();
+ 
         </script>
     </body>
     </html>
@@ -191,7 +203,7 @@ function Canvas() {
         <iframe
             title="HTML Content"
             srcDoc={htmlContent}
-            style={{ width: '100%', height: '100%', border: 'none' }}
+            style={{ width: '100vw', height: '100vh', border: 'none' }}
         />
     );
 }

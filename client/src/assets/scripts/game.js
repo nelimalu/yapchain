@@ -44,6 +44,7 @@ function Sprite(image, x, y, width, height, src_x, src_y, src_width, src_height)
 var speechscale = 4;
 var pscale = 5;
 var velocity = 3;
+var music = document.getElementById("music");
 var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
 var foreground = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/foreground.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
 var speechSprites = [
@@ -51,6 +52,7 @@ var speechSprites = [
   ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/mediumbox.png", -210, -75, 125 * speechscale, 18 * speechscale, 0, 0, 125, 18],
   ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/largebox.png", -310, -75, 175 * speechscale, 18 * speechscale, 0, 0, 175, 18]
 ];
+
 
 class SpeechBubble {
 
@@ -187,6 +189,8 @@ class Player {
 
 
 window.addEventListener("keydown", function(event) {
+  music.play(); 
+
   if (event.key == "w" || event.key == "ArrowUp") {  // W key
     player.pressed[2] = true;
   }
@@ -258,5 +262,6 @@ function animate() {
   player.speak("fuck you")
   foreground.draw();
 }
+
 
 animate();

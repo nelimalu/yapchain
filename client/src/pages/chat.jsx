@@ -6,8 +6,13 @@ class Canvas extends Component {
     super(props);
     this.canvasRef = React.createRef();
     this.keysPressed = {};
-    this.offset = { x: 0, y: 0 };
-    this.objectsPositions = [];
+    this.state = {
+      playerPosition: { x: 400, y: 300 }, // Initial player position at the center
+      objectsPositions: [
+        { x: 500, y: 350, width: 40, height: 40 },
+        { x: 560, y: 250, width: 40, height: 40 }
+      ]
+    };
   }
 
   componentDidMount() {
@@ -39,9 +44,11 @@ class Canvas extends Component {
   draw = (ctx, frameCount) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
+    const { playerPosition, objectsPositions } = this.state;
+
     // Draw the main character (circle) at the center of the canvas
-    const centerX = ctx.canvas.width / 2;
-    const centerY = ctx.canvas.height / 2;
+    const centerX = playerPosition.x;
+    const centerY = playerPosition.y;
 
     ctx.fillStyle = '#000000';
     ctx.beginPath();
@@ -49,36 +56,17 @@ class Canvas extends Component {
     ctx.fill();
 
     // Draw other objects relative to the main character
-    this.drawOtherObjects(ctx, this.offset, centerX, centerY);
+    this.drawOtherObjects(ctx, objectsPositions, playerPosition);
   };
 
-  drawOtherObjects = (ctx, offset, centerX, centerY) => {
+  drawOtherObjects = (ctx, objectsPositions, playerPosition) => {
     ctx.fillStyle = '#FF0000';
 
-    // Example object 1
-    const object1 = {
-      x: centerX + 100 - offset.x,
-      y: centerY + 50 - offset.y,
-      width: 40,
-      height: 40,
-    };
-    ctx.beginPath();
-    ctx.rect(object1.x, object1.y, object1.width, object1.height);
-    ctx.fill();
-
-    // Example object 2
-    const object2 = {
-      x: centerX + 160 - offset.x,
-      y: centerY - 50 - offset.y,
-      width: 40,
-      height: 40,
-    };
-    ctx.beginPath();
-    ctx.rect(object2.x, object2.y, object2.width, object2.height);
-    ctx.fill();
-
-    // Store positions
-    this.objectsPositions = [object1, object2];
+    objectsPositions.forEach((obj) => {
+      ctx.beginPath();
+      ctx.rect(obj.x - playerPosition.x + 400, obj.y - playerPosition.y + 300, obj.width, obj.height);
+      ctx.fill();
+    });
   };
 
   handleKeyDown = (event) => {
@@ -92,38 +80,45 @@ class Canvas extends Component {
   };
 
   updateOffset = () => {
-    this.setState(prevState => {
-    let newOffsetX = prevState ? prevState.offset.x : 0;
-    let newOffsetY = prevState ? prevState.offset.y : 0;
+    let { playerPosition } = this.state;
+    let newOffsetX = 0;
+    let newOffsetY = 0;
 
-      if (this.keysPressed['ArrowUp']) {
-        console.log("iojpadsijdsaijoasdoijadsoij")
-        newOffsetY -= 5;
+    if (this.keysPressed['ArrowUp']) {
+      newOffsetY = -5;
+    }
+    if (this.keysPressed['ArrowDown']) {
+      newOffsetY = 5;
+    }
+    if (this.keysPressed['ArrowLeft']) {
+      newOffsetX = -5;
+    }
+    if (this.keysPressed['ArrowRight']) {
+      newOffsetX = 5;
+    }
+
+    this.setState(prevState => ({
+      playerPosition: {
+        x: prevState.playerPosition.x + newOffsetX,
+        y: prevState.playerPosition.y + newOffsetY
       }
-      if (this.keysPressed['ArrowDown']) {
-        newOffsetY += 5;
-      }
-      if (this.keysPressed['ArrowLeft']) {
-        newOffsetX -= 5;
-      }
-      if (this.keysPressed['ArrowRight']) {
-        newOffsetX += 5;
-      }
+    }), () => {
       if (this.keysPressed['Enter']) {
-        console.log(this.objectsPositions);
+        this.logPositions();
       }
-
-      return { offset: { x: newOffsetX, y: newOffsetY } };
     });
+  };
+
+  logPositions = () => {
+    const { playerPosition, objectsPositions } = this.state;
+    console.log("Player Position:", playerPosition);
+    console.log("Objects Positions:", objectsPositions);
   };
 
   render() {
     return (
       <>
         <canvas ref={this.canvasRef} width={800} height={600} {...this.props} />
-        <div className="rounded-full">
-          <div className="hi"> </div>
-        </div>
       </>
     );
   }

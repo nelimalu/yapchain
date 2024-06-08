@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import '../clearBG.css';
-
+import '../chat.css'
 const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -23,7 +23,7 @@ const htmlContent = `
             canvas {
               margin: 0;
               padding: 0;
-              height: 100vh
+              height: 100vh;
               overflow: hidden;
             }
         </style>
@@ -64,13 +64,14 @@ function Sprite(image, x, y, width, height, src_x, src_y, src_width, src_height)
 
 var pscale = 5;
 var velocity = 3;
-var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", 0, -300, 1906, 1058, 0, 0, 1906, 1058);
+var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -100, -200, 1906, 1058, 0, 0, 1906, 1058);
 
 class Player {
 
   constructor() {
     this.x = window.innerWidth / 2 - 8 * pscale;
     this.y = window.innerHeight / 2 - 11 * pscale;
+    this.direction = "down-idle";
     this.width = 16 * pscale;
     this.height = 22 * pscale;
     this.pressed = [false, false, false, false];  // left right up down
@@ -216,11 +217,17 @@ animate();
 
 function Canvas() {
     return (
-        <iframe
-            title="HTML Content"
-            srcDoc={htmlContent}
-            style={{ width: '100vw', height: '100vh', border: 'none' }}
-        />
+        <>
+            <iframe
+                title="HTML Content"
+                srcDoc={htmlContent}
+                style={{ width: '100vw', height: '100vh', border: 'none' }}
+            />
+            <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center", "position": "absolute", "zIndex": "10", "top": "0", "left": "0"}}>
+                <input name='yap' className='yap-input'/>
+            </div>
+        </>
+        
     );
 }
 

@@ -10,6 +10,8 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+
+
 app.get("/message", (req, res) => {
     console.log("Received GET request");
     res.send("I GOT YOUR MESSAGE!!!");

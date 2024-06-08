@@ -150,24 +150,28 @@ class Player {
 
     if (this.pressed[0] ) { // left
       background.x += velocity;
+      foreground.x += velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][0]+=velocity;
       }
     } 
     if (this.pressed[1]) { // right
       background.x -= velocity;
+      foreground.x -= velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][0]-=velocity;
       }
     }
     if (this.pressed[2]) { // up
       background.y += velocity;
+      foreground.y += velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][1]+=velocity;
       }
     }
     if (this.pressed[3] ) { // down
       background.y -= velocity;
+      foreground.y -= velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][1]-=velocity;
       }

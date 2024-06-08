@@ -132,6 +132,22 @@ class Player {
 
 }
 
+window.onload = function() {
+  const tryCoords = async () => {
+     const response = await fetch('http://localhost:2000/coords', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ x: background.x, y:background.y })
+    });
+
+    console.log(response)
+  }
+
+  setInterval(function() {
+    tryCoords();
+  },10);
+};
+
 
 window.addEventListener("keydown", function(event) {
   if (event.key == "w" || event.key == "ArrowUp") {  // W key
@@ -148,22 +164,6 @@ window.addEventListener("keydown", function(event) {
 
   if (event.key == "d" || event.key == "ArrowRight") {  // D key
     player.pressed[1] = true;
-  }
-
-    const tryCoords = async () => {
-             const response = await fetch('http://localhost:2000/coords', {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ x: background.x, y:background.y })
-            });
-
-            console.log(response)
-        }
-
-  if (event.key == "Enter") {
-    tryCoords()
-    console.log("hudasioasd")
-    console.log(background.x, background.y, "dasdas")
   }
 });
 

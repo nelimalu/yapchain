@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import '../clearBG.css';
 import '../chat.css'
@@ -15,11 +14,9 @@ const htmlContent = `
               padding: 0;
               overflow: hidden;
             }
-
             body {
               margin: 0;
             }
-
             canvas {
               margin: 0;
               padding: 0;
@@ -32,18 +29,13 @@ const htmlContent = `
         <canvas></canvas>
         <script>
             var canvas = document.querySelector('canvas');
-
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-
 var c = canvas.getContext('2d');
 c.imageSmoothingEnabled = false;
-
-
 function Sprite(image, x, y, width, height, src_x, src_y, src_width, src_height) {
   // x, y, width, height is used to resize the image
   // for src things you put the actual size of the image
-
   this.image = new Image();
   this.image.src = image;
   this.x = x;
@@ -56,18 +48,14 @@ function Sprite(image, x, y, width, height, src_x, src_y, src_width, src_height)
   this.src_y = src_y;
   this.src_width = src_width;
   this.src_height = src_height;
-
   this.draw = function() {
     c.drawImage(this.image, this.src_x, this.src_y, this.src_width, this.src_height, this.x, this.y, this.width, this.height);
   }
 }
-
 var pscale = 5;
 var velocity = 3;
-var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -100, -200, 1906, 1058, 0, 0, 1906, 1058);
-
+var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -100, -200, 1906*4, 1058*4, 0, 0, 1906, 1058);
 class Player {
-
   constructor() {
     this.x = window.innerWidth / 2 - 8 * pscale;
     this.y = window.innerHeight / 2 - 11 * pscale;
@@ -92,7 +80,6 @@ class Player {
     this.cycle = 0;
     this.lastpress = 0;
   }
-
   draw() {
     if (this.pressed[0]) { // left
       this.playersprites[6 + this.cycle].draw();
@@ -113,82 +100,69 @@ class Player {
     else {
       this.playersprites[this.lastpress].draw();
     }
-
-
-
     if (this.pressed[0]) { // left
       background.x += velocity;
     }
     if (this.pressed[1]) { // right
       background.x -= velocity;
-
     }
     if (this.pressed[2]) { // up
       background.y += velocity;
-
     }
     if (this.pressed[3]) { // down
       background.y -= velocity;
     }
   }
-
 }
-
 window.onload = function() {
   const tryCoords = async () => {
      const response = await fetch('http://localhost:2000/coords', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ x: background.x, y:background.y })
+        body: JSON.stringify({ x: background.x, y:background.y, direction:player.direction })
     });
-
     console.log(response)
   }
-
   setInterval(function() {
     tryCoords();
-  },10);
+  },1000);
 };
-
-
 window.addEventListener("keydown", function(event) {
   if (event.key == "w" || event.key == "ArrowUp") {  // W key
+  player.direction = "up-moving"
     player.pressed[2] = true;
   }
-
   if (event.key == "s" || event.key == "ArrowDown") {  // S key
     player.pressed[3] = true;
+    player.direction = "down-moving"
   }
-
   if (event.key == "a" || event.key == "ArrowLeft") {  // A key
-    player.pressed[0] = true;
+    player.direction = "left-moving"  
+  player.pressed[0] = true;
   }
-
   if (event.key == "d" || event.key == "ArrowRight") {  // D key
+  player.direction = "right-moving"
     player.pressed[1] = true;
   }
 });
-
 window.addEventListener("keyup", function(event) {
     if (event.key == "w" || event.key == "ArrowUp") {
+    player.direction = "up-idle"
       player.pressed[2] = false;
     }
-
     if (event.key == "s" || event.key == "ArrowDown") {
+    player.direction = "down-idle"
       player.pressed[3] = false;
     }
-
     if (event.key == "a" || event.key == "ArrowLeft") {
+    player.direction = "left-idle"
       player.pressed[0] = false;
     }
-
     if (event.key == "d" || event.key == "ArrowRight") {
+    player.direction = "right-idle"
       player.pressed[1] = false;
     }
 });
-
-
-
 var player = new Player();
 var frame = 0;
 function animate() {
@@ -197,24 +171,20 @@ function animate() {
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
   background.draw();
-
   frame++;
   if (frame % 10 == 0) {
     player.cycle++;
     player.cycle %= 3;
   }
-  console.log(player.cycle)
+  console.log(player.direction)
   player.draw();
-
 }
-
 animate();
  
         </script>
     </body>
     </html>
 `;
-
 function Canvas() {
     return (
         <>
@@ -224,11 +194,11 @@ function Canvas() {
                 style={{ width: '100vw', height: '100vh', border: 'none' }}
             />
             <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center", "position": "absolute", "zIndex": "10", "top": "0", "left": "0"}}>
-                <input name='yap' className='yap-input'/>
+                <input name='yap' className='yap-input pixel-corners'/>
+                <input maxLength={75} name='yap' className='yap-input pixel-corners'/>
             </div>
         </>
-        
+
     );
 }
-
 export default Canvas;

@@ -1,5 +1,6 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -7,11 +8,21 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get("/message", (req,res) => {
-    console.log("received")
-    res.send("I GOT YOUR MESSAGE!!!")
-})
+app.use(express.json());
 
-app.listen((2000), () =>  {
-    console.log("listening")
-})
+app.get("/message", (req, res) => {
+    console.log("Received GET request");
+    res.send("I GOT YOUR MESSAGE!!!");
+});
+
+app.post("/coords", (req, res) => {
+    console.log("Received POST request with coordinates");
+    let x = req.body.x;
+    let y = req.body.y;
+    console.log("Coordinates received:", x, y);
+    res.json({ x, y });
+});
+
+app.listen(2000, () => {
+    console.log("Server listening on port 2000");
+});

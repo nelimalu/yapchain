@@ -63,13 +63,14 @@ function Sprite(image, x, y, width, height, src_x, src_y, src_width, src_height)
 
 var pscale = 5;
 var velocity = 3;
-var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", 0, -300, 1906, 1058, 0, 0, 1906, 1058);
+var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -100, -200, 1906, 1058, 0, 0, 1906, 1058);
 
 class Player {
 
   constructor() {
     this.x = window.innerWidth / 2 - 8 * pscale;
     this.y = window.innerHeight / 2 - 11 * pscale;
+    this.direction = "down-idle";
     this.width = 16 * pscale;
     this.height = 22 * pscale;
     this.pressed = [false, false, false, false];  // left right up down

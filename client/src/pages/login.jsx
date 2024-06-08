@@ -20,7 +20,7 @@ export default function Login() {
                     <div className='submit flex justify-center items-center' onClick={clicked}><p className='font-bold'>Go!</p></div>
                 </div>
             </div>
-            <div className={`w-full h-full z-10 bg-white ${isTransition}`} ></div>
+            <div className={`w-full h-full z-10 bg-black ${isTransition}`} ></div>
         </>
     )
 }

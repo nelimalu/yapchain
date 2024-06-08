@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 
 import { NearContext } from '@/context';
-import styles from '@/styles/app.module.css';
+
 import { HelloNearContract } from '../../config';
 import { Cards } from '@/components/cards';
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-
+import '../styles/login.css'
 import '@/styles/globals.css';
 import '../styles/login.css';
 import { NearContext } from '@/context';

@@ -45,6 +45,8 @@ var speechscale = 4;
 var pscale = 5;
 var velocity = 3;
 var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
+var foreground = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/foreground.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
+
 var speechSprites = [
   ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/smallbox.png", -110, -75, 75 * speechscale, 18 * speechscale, 0, 0, 75, 18],
   ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/mediumbox.png", -210, -75, 125 * speechscale, 18 * speechscale, 0, 0, 125, 18],
@@ -155,24 +157,28 @@ class Player {
 
     if (this.pressed[0] ) { // left
       background.x += velocity;
+      foreground.x += velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][0]+=velocity;
       }
     } 
     if (this.pressed[1]) { // right
       background.x -= velocity;
+      foreground.x -= velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][0]-=velocity;
       }
     }
     if (this.pressed[2]) { // up
       background.y += velocity;
+      foreground.y += velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][1]+=velocity;
       }
     }
     if (this.pressed[3] ) { // down
       background.y -= velocity;
+      foreground.y -= velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][1]-=velocity;
       }
@@ -237,13 +243,7 @@ var rectangles = [
   [-35, 610, 1000, 10],
   [965, 610, 1000, 10],
   [-100,-100,300,300],
-
-
 ];
-
-
-
-
 
 
 var player = new Player();
@@ -266,6 +266,8 @@ function animate() {
 
 
   player.speak("fuck you")
+  foreground.draw();
+
 }
 
 animate();

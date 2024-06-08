@@ -26,7 +26,7 @@ const htmlContent = `
         </style>
     </head>
     <body>
-        <canvas></canvas>
+        <canvas width="1000" height="1000"></canvas>
         <script>
             var canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
@@ -114,6 +114,9 @@ class Player {
     }
   }
 }
+
+
+
 window.onload = function() {
   const tryCoords = async () => {
      const response = await fetch('http://localhost:2000/coords', {
@@ -127,6 +130,9 @@ window.onload = function() {
     tryCoords();
   },1000);
 };
+
+
+
 window.addEventListener("keydown", function(event) {
   if (event.key == "w" || event.key == "ArrowUp") {  // W key
   player.direction = "up-moving"
@@ -194,7 +200,6 @@ function Canvas() {
                 style={{ width: '100vw', height: '100vh', border: 'none' }}
             />
             <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center", "position": "absolute", "zIndex": "10", "top": "0", "left": "0"}}>
-                <input name='yap' className='yap-input pixel-corners'/>
                 <input maxLength={75} name='yap' className='yap-input pixel-corners'/>
             </div>
         </>

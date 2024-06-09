@@ -33,7 +33,7 @@ export default function Button() {
       }
     }, [signedAccountId, wallet]);
     return (
-        <div className='navbar-nav pt-1' style={{"display": "flex", "align-items": "center", "justify-content": "center", "textAlign": "center", "min-width": "256px"}}>
+        <div className='navbar-nav pt-1' style={{"display": "flex", "alignItems": "center", "justifyContent": "center", "textAlign": "center", "minWidth": "256px"}}>
           {isLoggedOut ?
             <button className="btn full pixel-corners" onClick={action} > {label} </button> :<p style={{"maxWidth": "312px", "fontSize": "14px", "width": "100%"}}>You are logged in as  <u>{signedAccountId}.</u> Please wait while we transport you</p>
           }

@@ -216,7 +216,6 @@ window.addEventListener("keydown", function(event) {
 
 
 window.addEventListener("keyup", function(event) {
-  steps.pause();
     if (event.key == "w" || event.key == "ArrowUp") {
       player.pressed[2] = false;
     }

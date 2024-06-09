@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <>
       <div style={{height: "100vh"}} className="w-full flex justify-center items-center">
-        <div className='login flex flex-col gap-4'>
-          <div className="flex items-center justify-center w-full mb-2"><h1 className='text-5xl font-bold text-white'>YapChain</h1></div>
+        <div className='login flex flex-col'>
+          <div style={{"marginBottom": "16px"}} className="flex items-center justify-center w-full"><h1 className='text-5xl font-bold text-white'>YapChain</h1></div>
             <Button />
         </div>
       </div>

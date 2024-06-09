@@ -121,9 +121,10 @@ a {
     0px 8px);
   position: relative;
 }
-.pixel-corners {
+.pixel-corners{
   border: 8px solid transparent;
 }
+
 .pixel-corners--wrapper {
   width: fit-content;
   height: fit-content;
@@ -170,7 +171,7 @@ body {
     font-family: Pixel;
     min-width: 24rem;
     min-height: 24rem;
-    padding: 2rem 2rem 0rem 2rem;
+    padding: 4rem 2rem 0rem 2rem;
     image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
     image-rendering: -moz-crisp-edges;          /* Firefox                        */
     image-rendering: -o-crisp-edges;            /* Opera                          */
@@ -232,7 +233,7 @@ body {
   background-color: white;
   color: black;
   top: 88vh;
-  width: 80%;
+  width: 64%;
   font-size: 20px;
   padding: 16px;
   font-family: Pixel;

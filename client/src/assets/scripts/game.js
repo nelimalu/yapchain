@@ -190,7 +190,8 @@ class Player {
 
 
 window.addEventListener("keydown", function(event) {
-  //music.play(); 
+  music.volume = 0.1;
+  music.play(); 
   steps.play(); 
 
   if (event.key == "w" || event.key == "ArrowUp") {  // W key

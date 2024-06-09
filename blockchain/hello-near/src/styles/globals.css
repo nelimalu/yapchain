@@ -236,7 +236,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 8px;
 }
 .yap-input {
   background-color: white;
@@ -259,7 +259,10 @@ body {
   cursor: pointer;
 }
 .image-1 {
-  background-image: url('https://github.com/nelimalu/yapchain/tree/main/client/src/assets/images/ycFeedButton.png') !important;
+  background-image: url('https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/ycFeedButton.png');
+  height: 72px;
+  width: 72px;
+  aspect-ratio: 1/1;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;

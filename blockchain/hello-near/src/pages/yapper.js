@@ -296,7 +296,7 @@ export default function Yapper() {
       <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center"}}>
         <form onSubmit={onFormSubmit} className='yap-container'>
           <input onChange={e => setMessage(e.currentTarget.value)} maxLength={75} name='yap' className='yap-input pixel-corners' />
-          <input className='yap-send pixel-corners' type='submit' />
+          <input className='yap-send pixel-corners' value={"submit!!!"} type='submit' />
           </form>
       </div>
     </>

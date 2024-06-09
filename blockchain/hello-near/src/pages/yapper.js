@@ -569,9 +569,12 @@ export default function Yapper() {
       {counter>=1 &&
         <div className={`overlay ${isChat ? 'show' : 'hide'}`}>
         <div className={`book ${isChat ? 'show' : 'hide'}`}>
-          [...JSON.parse(greeting)].map((content, index) => ( 
-            <div key={index}>[{new Date(content.timestamp).getHours()}:{new Date(content.timestamp).getMinutes()}:{new Date(content.timestamp).getSeconds()}] {content.user}: {content.content}</div> 
-          )
+          {
+            [...JSON.parse(greeting)].map((content, index) => ( 
+                <div key={index}>[{new Date(content.timestamp).getHours()}:{new Date(content.timestamp).getMinutes()}:{new Date(content.timestamp).getSeconds()}] {content.user}: {content.content}</div>
+              ) 
+            )
+          }
         </div>
       </div>
       }

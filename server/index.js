@@ -4,6 +4,8 @@ const app = express();
 
 var players = {};
 
+const port = process.env.PORT || 3000;
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
@@ -21,11 +23,18 @@ app.get("/message", (req, res) => {
     res.send("I GOT YOUR MESSAGE!!!");
 });
 
-app.post("/leave", (req, res) => {
 
+app.get("/reset", (req, res) => {
+    players = {};
+    res.send("successfully reset player data")
 });
 
 
+
+app.post("/leave", (req, res) => {
+    let id = req.id;
+    delete players[id];
+});
 
 app.post("/coords", (req, res) => {
     //console.log("Received POST request with coordinates");
@@ -46,6 +55,7 @@ app.post("/coords", (req, res) => {
     res.send(players);
 });
 
-app.listen(2000, () => {
-    console.log("Server listening on port 2000");
+// '0.0.0.0'
+app.listen(port, () => {
+  console.log('Hello world listening on port', port);
 });

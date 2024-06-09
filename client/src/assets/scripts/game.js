@@ -352,13 +352,14 @@ function animate() {
   }
   if(frame%150==0){
     water1.draw();
+    
+    console.log(frame);
   }
   else if((frame+50)%150==0){
     water2.draw();
   }
   else if((frame+100)%150==0){
     water3.draw();
-    console.log(frame);
   }
   
   player.draw();

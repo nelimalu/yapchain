@@ -74,12 +74,16 @@ var music = document.getElementById("music");
 var steps = document.getElementById("steps");
 var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
 var foreground = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/foreground.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
+var water1 = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/water1.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
+var water2 = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/water2.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
+var water3 = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/water3.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
 
 var speechSprites = [
   ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/smallbox.png", -110, -75, 75 * speechscale, 18 * speechscale, 0, 0, 75, 18],
   ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/mediumbox.png", -210, -75, 125 * speechscale, 18 * speechscale, 0, 0, 125, 18],
   ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/largebox.png", -310, -75, 175 * speechscale, 18 * speechscale, 0, 0, 175, 18]
 ];
+
 
 
 class SpeechBubble {
@@ -172,6 +176,9 @@ class Player {
     if (this.pressed[0]&&isInBounds(player.x-4, player.y)) { // left
       background.x += velocity;
       foreground.x += velocity;
+      water1.x += velocity;
+      water2.x += velocity;
+      water3.x += velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][0]+=velocity;
       }
@@ -179,6 +186,9 @@ class Player {
     if (this.pressed[1]&&isInBounds(player.x+4, player.y)) { // right
       background.x -= velocity;
       foreground.x -= velocity;
+      water1.x -= velocity;
+      water2.x -= velocity;
+      water3.x -= velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][0]-=velocity;
       }
@@ -186,6 +196,9 @@ class Player {
     if (this.pressed[2]&&isInBounds(player.x, player.y-4)) { // up
       background.y += velocity;
       foreground.y += velocity;
+      water1.y += velocity;
+      water2.y += velocity;
+      water3.y += velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][1]+=velocity;
       }
@@ -193,6 +206,9 @@ class Player {
     if (this.pressed[3]&&isInBounds(player.x, player.y+20)) { // down
       background.y -= velocity;
       foreground.y -= velocity;
+      water1.y -= velocity;
+      water2.y -= velocity;
+      water3.y -= velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][1]-=velocity;
       }
@@ -241,6 +257,7 @@ window.addEventListener("keydown", function(event) {
 
 
 window.addEventListener("keyup", function(event) {
+  steps.pause();
     if (event.key == "w" || event.key == "ArrowUp") {
       player.pressed[2] = false;
       keys.delete(event.key);
@@ -319,6 +336,17 @@ function animate() {
     player.cycle++;
     player.cycle %= 3;
   }
+  if(frame%150==0){
+    water1.draw();
+  }
+  else if((frame+50)%150==0){
+    water2.draw();
+  }
+  else if((frame+100)%150==0){
+    water3.draw();
+    console.log(frame);
+  }
+  
   player.draw();
   c.fillStyle="red";
 

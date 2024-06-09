@@ -228,14 +228,25 @@ body {
         bottom: 0;
     }
 }
-.yap-input {
+.yap-container {
   position: absolute;
-  background-color: white;
-  color: black;
   top: 88vh;
   width: 64%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.yap-input {
+  background-color: white;
+  width: 90%;
+  color: black;
   font-size: 20px;
   padding: 16px;
   font-family: Pixel;
   border-radius: 8px;
+}
+.yap-send{
+  display: flex;
+  flex-grow: 100%;
+  background-color: white;
 }

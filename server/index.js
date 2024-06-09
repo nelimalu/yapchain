@@ -26,7 +26,7 @@ app.get("/message", (req, res) => {
 
 app.get("/reset", (req, res) => {
     players = {};
-    res.send("successfully reset player data")
+    res.send("successfully reset player")
 });
 
 
@@ -43,12 +43,10 @@ app.post("/coords", (req, res) => {
     let direction = req.body.direction;
     let id = req.body.id;
 
-    if (!(id in players)) {
-        players[id] = {
-            "x": x,
-            "y": y,
-            "direction": direction
-        }
+    players[id] = {
+        "x": x,
+        "y": y,
+        "direction": direction
     }
 
     console.log("Coordinates received:", id, x, y, direction);

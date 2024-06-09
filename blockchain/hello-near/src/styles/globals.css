@@ -285,7 +285,7 @@ canvas {
   cursor: pointer;
 }
 .overlay {
-  
+  overflow-y: scroll;
   position: absolute;
   top: 0;
   left: 0;

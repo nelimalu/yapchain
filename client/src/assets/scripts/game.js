@@ -45,6 +45,7 @@ var speechscale = 4;
 var pscale = 5;
 var velocity = 3;
 var music = document.getElementById("music");
+var steps = document.getElementById("steps");
 var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
 var foreground = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/foreground.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058);
 var speechSprites = [
@@ -189,7 +190,9 @@ class Player {
 
 
 window.addEventListener("keydown", function(event) {
+  music.volume = 0.1;
   music.play(); 
+  steps.play(); 
 
   if (event.key == "w" || event.key == "ArrowUp") {  // W key
     player.pressed[2] = true;
@@ -213,6 +216,7 @@ window.addEventListener("keydown", function(event) {
 
 
 window.addEventListener("keyup", function(event) {
+  steps.pause();
     if (event.key == "w" || event.key == "ArrowUp") {
       player.pressed[2] = false;
     }

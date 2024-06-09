@@ -229,25 +229,21 @@ window.addEventListener("keydown", function(event) {
     if (event.key == "w" || event.key == "ArrowUp") {  // W key
       player.pressed[2] = true;
       keys.add(event.key);
-      steps.play(); 
     }
 
     if (event.key == "s" || event.key == "ArrowDown") {  // S key
       player.pressed[3] = true;
       keys.add(event.key);
-      steps.play(); 
     }
 
     if (event.key == "a" || event.key == "ArrowLeft") {  // A key
       player.pressed[0] = true;
       keys.add(event.key);
-      steps.play(); 
     }
 
     if (event.key == "d" || event.key == "ArrowRight") {  // D key
       player.pressed[1] = true;
       keys.add(event.key);
-      steps.play(); 
 
     }
   
@@ -355,6 +351,12 @@ function animate() {
   // }
   // // console.log(isInBounds);
   // console.log(isInBounds());
+
+  if(keys.has("w") || keys.has("s") || keys.has("a") || keys.has("d") || keys.has("ArrowUp") || keys.has("ArrowDown") || keys.has("ArrowLeft") || keys.has("ArrowRight")){
+    steps.play();
+  } else {
+    steps.pause();
+  }
 
   player.speak("fuck you")
   foreground.draw();

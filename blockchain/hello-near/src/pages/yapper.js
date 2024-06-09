@@ -19,7 +19,7 @@ export default function Yapper() {
     if (!wallet) return;
 
     await wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' }).then(
-      greeting => setGreeting(greeting)
+      greeting => setGreeting(greeting) 
     ).then(
       console.log(greeting)
     )
@@ -519,9 +519,8 @@ export default function Yapper() {
     </html>
   `;
 
-  const onFormSubmit = e => {
-    e.preventDefault();
-    console.log(message);
+  const clicked = () => {
+    console.log(message, "hiudsoisado");
     setNewGreeting(message);
     saveGreeting();
   }
@@ -535,10 +534,10 @@ export default function Yapper() {
         style={{ width: '100vw', height: '100vh', border: 'none' }}
       />
       <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center"}}>
-        <form onSubmit={onFormSubmit} className='yap-container'>
-          <input onChange={e => setMessage(e.currentTarget.value)} maxLength={75} name='yap' className='yap-input pixel-corners' />
-          <input className='yap-send pixel-corners' value={"submit!!!"} type='submit' />
-          </form>
+        <div className='yap-container'>
+          <input onChange={(e) => setMessage(e.target.value)} maxLength={75} name='yap' className='yap-input pixel-corners' />
+          <div className='yap-send pixel-corners' onClick={clicked}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m2 21l21-9L2 3v7l15 2l-15 2z"/></svg></div> 
+        </div>
       </div>
     </>
   );

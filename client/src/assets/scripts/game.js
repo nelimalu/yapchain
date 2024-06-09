@@ -2,6 +2,7 @@ var canvas = document.querySelector('canvas');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+water=1;
 
 var c = canvas.getContext('2d');
 c.imageSmoothingEnabled = false;
@@ -341,25 +342,27 @@ var rectangles = [
 var player = new Player();
 var frame = 0;
 function animate() {
+  
   requestAnimationFrame(animate);
   // c.clearRect(0, 0, innerWidth, innerHeight);
   c.fillStyle = "black";
   background.draw();
+  if(water==1)water1.draw();
+  else if(water==2)water2.draw();
+  else water3.draw();
   frame++;
   if (frame % 10 == 0) {
     player.cycle++;
     player.cycle %= 3;
   }
   if(frame%150==0){
-    water1.draw();
-    
-    console.log(frame);
+    water=1;
   }
   else if((frame+50)%150==0){
-    water2.draw();
+    water=2;
   }
   else if((frame+100)%150==0){
-    water3.draw();
+    water=3;
   }
   
   player.draw();

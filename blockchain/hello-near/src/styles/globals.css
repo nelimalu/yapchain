@@ -248,8 +248,15 @@ body {
   border-radius: 8px;
 }
 .yap-send{
-
+  background-color: #83B4FF;
   box-shadow: 1px 1px  black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.yap-send:hover {
+  cursor: pointer;
 }
 .image-1 {
   background-image: url('https://github.com/nelimalu/yapchain/tree/main/client/src/assets/images/ycFeedButton.png') !important;

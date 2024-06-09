@@ -13,7 +13,7 @@ export default function Yapper() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
 
-  const [message, setMessage] = useState("")
+  const [yip, setYip] = useState("")
 
   const getGreeting = async () => {
     if (!wallet) return;
@@ -42,10 +42,13 @@ export default function Yapper() {
   }, []);
 
   useEffect(() => {
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       getGreeting();
     }, 100);
+  
+    return () => clearInterval(intervalId); // Cleanup function
   }, []);
+  
 
   const htmlContent = `
     <!DOCTYPE html>
@@ -520,8 +523,8 @@ export default function Yapper() {
   `;
 
   const clicked = () => {
-    console.log(message, "hiudsoisado");
-    setNewGreeting(message);
+    console.log(yip, "hiudsoisado");
+    setNewGreeting(yip);
     saveGreeting();
   }
 
@@ -535,7 +538,7 @@ export default function Yapper() {
       />
       <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center"}}>
         <div className='yap-container'>
-          <input onChange={(e) => setMessage(e.target.value)} maxLength={75} name='yap' className='yap-input pixel-corners' />
+          <input onChange={(e) => setYip(e.target.value)} maxLength={75} name='yap' className='yap-input pixel-corners' />
           <div className='yap-send pixel-corners' onClick={clicked}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m2 21l21-9L2 3v7l15 2l-15 2z"/></svg></div> 
         </div>
       </div>

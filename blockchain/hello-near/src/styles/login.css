@@ -46,4 +46,8 @@ body {
     background-color: #525FE1 !important;
     border: 2px solid black;
     color: white!important;
+    
+}
+.btn.full{
+    width: 100%;
 }

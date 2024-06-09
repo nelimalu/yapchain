@@ -251,6 +251,13 @@ body {
   display: flex;
   flex-grow: 1;
   aspect-ratio: 1/1;
-  background-color: #525FE1 !important;
+  min-height: 332px;
+  min-width: 332px;
   box-shadow: 1px 1px  black;
+}
+.image-1 {
+  background-image: url('https://github.com/nelimalu/yapchain/tree/main/client/src/assets/images/ycFeedButton.png') !important;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }

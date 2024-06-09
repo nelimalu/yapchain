@@ -161,22 +161,22 @@ export default function Yapper() {
       }
     }
 
-    window.onload = function() {
+    // window.onload = function() {
 
-      const tryCoords = async () => {
-         const response = await fetch('http://yapper.adaptable.app/coords', {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: "${signedAccountId}", x: playerlocation.x, y: playerlocation.y, direction:player.direction })
-        });
-        response.json().then(res => {
-          console.log(res);
-          players = res;
-        });
-      }
-      setInterval(function() {
-        tryCoords();
-      },1);
+    //   const tryCoords = async () => {
+    //      const response = await fetch('http://yapper.adaptable.app/coords', {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({ id: "${signedAccountId}", x: playerlocation.x, y: playerlocation.y, direction:player.direction })
+    //     });
+    //     response.json().then(res => {
+    //       console.log(res);
+    //       players = res;
+    //     });
+    //   }
+    //   setInterval(function() {
+    //     tryCoords();
+    //   },1);
 
       setInterval(function() {
         console.log(playerlocation.x, playerlocation.y);
@@ -296,7 +296,8 @@ export default function Yapper() {
       <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center"}}>
         <form onSubmit={onFormSubmit} className='yap-container'>
           <input onChange={e => setMessage(e.currentTarget.value)} maxLength={75} name='yap' className='yap-input pixel-corners' />
-          <input className='yap-send pixel-corners' value={"submit!!!"} type='submit' />
+          <div className='yap-send image-1' ></div>
+          <div className='yap-send image-2 pixel-corners'></div>
           </form>
       </div>
     </>

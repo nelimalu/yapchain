@@ -19,6 +19,9 @@ export default function Yapper() {
   const [counter, setCounter] = useState(0)
   const router = useRouter();
 
+  
+  const [position, setPosition] = useState(0)
+
   const getGreeting = async () => {
     if (!wallet) return;
 
@@ -546,6 +549,11 @@ export default function Yapper() {
     setIsChat(!isChat)
   }
 
+  const clickedItem = () => {
+    console.log("ihdsahisad")
+    setPosition(position - 100);
+  }
+
   return (
     <>
       <iframe
@@ -568,10 +576,11 @@ export default function Yapper() {
       
       {counter>=1 &&
         <div className={`overlay ${isChat ? 'show' : 'hide'}`}>
-        <div className={`book ${isChat ? 'show' : 'hide'}`}>
+        <div onClick={clickedItem} className={`book ${isChat ? 'show' : 'hide'}`} style={{"position": 'relative', // Ensure the div is positioned relatively
+                  "top": `${position}px`}}>
           {
             [...JSON.parse(greeting)].map((content, index) => ( 
-                <div key={index}>[{new Date(content.timestamp).getHours()}:{new Date(content.timestamp).getMinutes()}:{new Date(content.timestamp).getSeconds()}] {content.user}: {content.content}</div>
+                <div className="item" key={index}>[{new Date(content.timestamp).getHours()}:{new Date(content.timestamp).getMinutes()}:{new Date(content.timestamp).getSeconds()}] {content.user}: {content.content}</div>
               ) 
             )
           }

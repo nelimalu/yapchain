@@ -278,6 +278,9 @@ body {
   background-size: contain;
   background-position: center;
 }
+canvas {
+  pointer-events: visibleFill;
+}
 .image-1:hover{
   cursor: pointer;
 }
@@ -352,4 +355,17 @@ body {
 }
 .logout:hover{
   cursor: pointer;
+}
+.book{
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 4px;
+  padding: 64px 190px;
+}
+.item{
+  font-size: 8px;
+  color: black;
+  
 }

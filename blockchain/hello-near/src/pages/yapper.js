@@ -501,9 +501,41 @@ export default function Yapper() {
             if (key == "${signedAccountId}") {
               player.draw();
             } else {
-              player.playersprites[0].x = players[key].x - playerlocation.x + window.innerWidth / 2 - 8 * pscale;
-              player.playersprites[0].y = players[key].y - playerlocation.y + window.innerHeight / 2 - 11 * pscale;
-              player.playersprites[0].draw();
+
+              const multiPlayer = players[key];
+
+              let sIndex = 0;
+              switch(multiPlayer.direction) {
+                case "left-moving":
+                  sIndex = 6 + player.cycle;
+                  break;
+              
+                case "right-moving":
+                  sIndex = 9 + player.cycle;
+                  break;
+                case "up-moving":
+                  sIndex = 3 + player.cycle;
+                  break;
+                case "down-moving":
+                  sIndex = player.cycle;
+                  break;
+                case "left-idle":
+                  sIndex = 6;
+                  break;
+                case "right-idle":
+                  sIndex = 9;
+                  break;
+                case "down-idle":
+                  sIndex = 0;
+                  break;
+                default: 
+                  sIndex=0;
+
+              }
+              //calculates a position relative to the user
+              player.playersprites[sIndex].x = players[key].x - playerlocation.x + window.innerWidth / 2 - 8 * pscale;
+              player.playersprites[sIndex].y = players[key].y - playerlocation.y + window.innerHeight / 2 - 11 * pscale;
+              player.playersprites[sIndex].draw();
             }
 
             //console.log(key, players[key]);

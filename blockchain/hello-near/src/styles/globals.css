@@ -172,6 +172,7 @@ body {
     font-family: Pixel;
     min-width: 24rem;
     min-height: 24rem;
+    animation: fade-up 1s ease-in-out forwards;
     padding: 4rem 2rem 0rem 2rem;
     image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
     image-rendering: -moz-crisp-edges;          /* Firefox                        */
@@ -180,6 +181,15 @@ body {
     image-rendering: pixelated;                 /* Universal support since 2021   */
     image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
     -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(-5%);
+  } to{
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .px-2{
     padding: 0.25rem 0.5rem;
@@ -268,8 +278,14 @@ body {
   background-size: contain;
   background-position: center;
 }
+canvas {
+  pointer-events: visibleFill;
+}
+.image-1:hover{
+  cursor: pointer;
+}
 .overlay {
-  
+  overflow-y: scroll;
   position: absolute;
   top: 0;
   left: 0;
@@ -336,4 +352,20 @@ body {
   border: black 2px solid;
   min-width: 72px;
   background-color: #A0153E;
+}
+.logout:hover{
+  cursor: pointer;
+}
+.book{
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 4px;
+  padding: 64px 190px;
+}
+.item{
+  font-size: 8px;
+  color: black;
+  
 }

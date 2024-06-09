@@ -46,7 +46,10 @@ body {
     background-color: #525FE1 !important;
     border: 2px solid black;
     color: white!important;
-    
+    transition: all ease-in-out 0.3s;
+}
+.btn:hover {
+    box-shadow: 4px 8px black;
 }
 .btn.full{
     width: 100%;

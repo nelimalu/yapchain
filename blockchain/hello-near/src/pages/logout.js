@@ -12,7 +12,7 @@ export default function Logout() {
 
     return (
         <button onClick={handleLogout}>
-            {signedAccountId ? `Logout ${signedAccountId}` : 'Loading...'}
+            {signedAccountId ? `Logout ${signedAccountId}` : 'Succesfully Logged Out'}
         </button>
     );
 }

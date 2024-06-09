@@ -10,6 +10,8 @@ export default function Yapper() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
 
+  const [message, setMessage] = useState("")
+
   const getGreeting = async () => {
     if (!wallet) return;
 
@@ -278,6 +280,11 @@ export default function Yapper() {
     </html>
   `;
 
+  const onFormSubmit = e => {
+    e.preventDefault();
+    console.log(message)
+  }
+
   return (
     <>
       <iframe
@@ -286,8 +293,11 @@ export default function Yapper() {
         srcDoc={htmlContent}
         style={{ width: '100vw', height: '100vh', border: 'none' }}
       />
-      <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center", "position": "absolute", "zIndex": "10", "top": "0", "left": "0"}}>
-        <input maxLength={75} name='yap' className='yap-input pixel-corners' />
+      <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center"}}>
+        <form onSubmit={onFormSubmit} className='yap-container'>
+          <input onChange={e => setMessage(e.currentTarget.value)} maxLength={75} name='yap' className='yap-input pixel-corners' />
+          <input className='yap-send pixel-corners' type='submit' />
+          </form>
       </div>
     </>
   );

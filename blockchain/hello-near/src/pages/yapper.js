@@ -21,7 +21,7 @@ export default function Yapper() {
     await wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' }).then(
       greeting => setGreeting(greeting)
     ).then(
-      console.log(greeting)
+      //console.log(greeting)
     )
   };
 
@@ -92,6 +92,7 @@ export default function Yapper() {
 
       var c = canvas.getContext('2d');
       var players = {};
+      var bubbles = [];
       c.imageSmoothingEnabled = false;
       const keys = new Set();
       var wasd = 0; 
@@ -170,8 +171,8 @@ export default function Yapper() {
           this.text = text;
           if (this.text.length > 75)
             this.text = this.text.substring(0, 75) + "...";
-          this.x = x;
-          this.y = y;
+          this.x = x + window.innerWidth / 2 - 8 * pscale;
+          this.y = y + window.innerHeight / 2 - 11 * pscale;
           this.sprite = new Sprite(...speechSprites[this.getSize()]);
           this.sprite.x += this.x;
           this.sprite.y += this.y;
@@ -188,6 +189,7 @@ export default function Yapper() {
         }
 
         draw() {
+          console.log("drawing...")
           this.sprite.draw();
           c.font = "16px Trebuchet MS";
           c.textAlign = 'center';
@@ -347,15 +349,18 @@ export default function Yapper() {
         }, 1);
 
         setInterval(function() {
+          bubbles = [];
           let message_data = JSON.parse('${greeting}');
+          //console.log(message_data)
           for (let message of message_data) {
             if (Date.now() - message.timestamp < 10000) {  // THIS IS IMPORATNT NUMBER 10 SECOND LIFESPAN
-
+              console.log("YESSSSSSSS")
               Object.keys(players).forEach(function(key) {
                 if (key == message.user) {
-                  console.log(key)
+                  bubbles.push(new SpeechBubble(message.content, players[key].x, players[key].y));
                 }
               });
+              console.log(bubbles)
 
             }
           }
@@ -506,8 +511,11 @@ export default function Yapper() {
           steps.pause();
         }
 
-        player.speak("this is a test")
         foreground.draw();
+
+        for (let bubble of bubbles) {
+          bubble.draw();
+        }
 
         //console.log(player.direction)
         //player.draw();

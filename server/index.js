@@ -23,11 +23,18 @@ app.get("/message", (req, res) => {
     res.send("I GOT YOUR MESSAGE!!!");
 });
 
-app.post("/leave", (req, res) => {
 
+app.get("/reset", (req, res) => {
+    players = {};
+    res.send("successfully reset player data")
 });
 
 
+
+app.post("/leave", (req, res) => {
+    let id = req.id;
+    delete players[id];
+});
 
 app.post("/coords", (req, res) => {
     //console.log("Received POST request with coordinates");

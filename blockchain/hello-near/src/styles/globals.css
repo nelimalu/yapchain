@@ -237,6 +237,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  z-index: 10;
 }
 .yap-input {
   background-color: white;
@@ -248,12 +249,91 @@ body {
   border-radius: 8px;
 }
 .yap-send{
-
+  background-color: #83B4FF;
   box-shadow: 1px 1px  black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.yap-send:hover {
+  cursor: pointer;
 }
 .image-1 {
-  background-image: url('https://github.com/nelimalu/yapchain/tree/main/client/src/assets/images/ycFeedButton.png') !important;
+  background-image: url('https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/ycFeedButton.png');
+  min-height: 72px;
+  min-width: 72px;
+  aspect-ratio: 1/1;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+}
+.overlay {
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  pointer-events: none;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+.overlay.show {
+  animation: fade-in 1s ease-in-out forwards
+}
+.overlay.hide {
+  animation: fade-out 1s ease-in-out forwards;
+}
+.book {
+  background-image: url('https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/ycFeedBook.png');
+  height: 720px;
+  width: 720px;
+  pointer-events: none;
+  display: flex;
+  aspect-ratio: 1/1;
+  background-repeat: no-repeat;
+  background-size: contain;
+  zoom: 3;
+  background-position: center;
+  opacity: 0; /* Initially hidden */
+  transform: translate(-5%, -5%);
+}
+
+.book.show {
+  animation: fade-in 1s ease-in-out forwards;
+}
+
+.book.hide {
+  animation: fade-out 1s ease-in-out forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.logout {
+  height: 72px;
+  width: 72px;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  border: black 2px solid;
+  min-width: 72px;
+  background-color: #A0153E;
 }

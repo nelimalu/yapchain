@@ -10,6 +10,8 @@ export default function Yapper() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
 
+  const [message, setMessage] = useState("")
+
   const getGreeting = async () => {
     if (!wallet) return;
 
@@ -126,37 +128,35 @@ export default function Yapper() {
         this.cycle = 0;
         this.lastpress = 0;
       }
+      fixSprite(index) {
+        this.playersprites[index].x = window.innerWidth / 2 - 8 * pscale;
+        this.playersprites[index].y = window.innerHeight / 2 - 11 * pscale;
+      }
+
       draw() {
         if (this.pressed[0]) { // left
+          this.fixSprite(6 + this.cycle);
           this.playersprites[6 + this.cycle].draw();
           this.lastpress = 6;
         }
         else if (this.pressed[1]) { // right
+          this.fixSprite(9 + this.cycle);
           this.playersprites[9 + this.cycle].draw();
           this.lastpress = 9;
         }
         else if (this.pressed[2]) { // up
+          this.fixSprite(3 + this.cycle);
           this.playersprites[3 + this.cycle].draw();
           this.lastpress = 3;
         }
         else if (this.pressed[3]) { // down
+          this.fixSprite(this.cycle);
           this.playersprites[0 + this.cycle].draw();
           this.lastpress = 0;
         }
         else {
+          this.fixSprite(this.lastpress);
           this.playersprites[this.lastpress].draw();
-        }
-        if (this.pressed[0]) { // left
-          background.x += velocity;
-        }
-        if (this.pressed[1]) { // right
-          background.x -= velocity;
-        }
-        if (this.pressed[2]) { // up
-          background.y += velocity;
-        }
-        if (this.pressed[3]) { // down
-          background.y -= velocity;
         }
       }
     }
@@ -254,11 +254,20 @@ export default function Yapper() {
       }
 
       Object.keys(players).forEach(function(key) {
+          if (key == "${signedAccountId}") {
+            player.draw();
+          } else {
+            player.playersprites[0].x = players[key].x - playerlocation.x + window.innerWidth / 2 - 8 * pscale;
+            player.playersprites[0].y = players[key].y - playerlocation.y + window.innerHeight / 2 - 11 * pscale;
+            player.playersprites[0].draw();
+          }
+
           //console.log(key, players[key]);
-          new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMForward.png",
-                      players[key].x - playerlocation.x + window.innerWidth / 2,
-                      players[key].y - playerlocation.y + window.innerHeight / 2,
-                      16 * 5, 22 * 5, 0, 0, 16, 22).draw();
+          //new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/character/ycSpriteMForward.png",
+          //            players[key].x - playerlocation.x + window.innerWidth / 2 - 8 * pscale,
+          //            players[key].y - playerlocation.y + window.innerHeight / 2 - 11 * pscale,
+          //            16 * 5, 22 * 5, 0, 0, 16, 22).draw();
+          
       });
 
       //console.log(player.direction)
@@ -271,6 +280,11 @@ export default function Yapper() {
     </html>
   `;
 
+  const onFormSubmit = e => {
+    e.preventDefault();
+    console.log(message)
+  }
+
   return (
     <>
       <iframe
@@ -280,9 +294,9 @@ export default function Yapper() {
         style={{ width: '100vw', height: '100vh', border: 'none' }}
       />
       <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center"}}>
-        <form className='yap-container'>
-          <input maxLength={75} name='yap' className='yap-input pixel-corners' />
-          <input className='yap-send' type='submit' />
+        <form onSubmit={onFormSubmit} className='yap-container'>
+          <input onChange={e => setMessage(e.currentTarget.value)} maxLength={75} name='yap' className='yap-input pixel-corners' />
+          <input className='yap-send pixel-corners' type='submit' />
           </form>
       </div>
     </>

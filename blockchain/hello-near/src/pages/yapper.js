@@ -178,8 +178,8 @@ export default function Yapper() {
           this.text = text;
           if (this.text.length > 75)
             this.text = this.text.substring(0, 75) + "...";
-          this.x = x;
-          this.y = y;
+          this.x = x + window.innerWidth / 2 - 8 * pscale;
+          this.y = y + window.innerHeight / 2 - 11 * pscale;
           this.sprite = new Sprite(...speechSprites[this.getSize()]);
           this.sprite.x += this.x;
           this.sprite.y += this.y;
@@ -571,7 +571,7 @@ export default function Yapper() {
         <div className={`book ${isChat ? 'show' : 'hide'}`}>
           {
             [...JSON.parse(greeting)].map((content, index) => ( 
-                <div key={index}>[{new Date(content.timestamp).getHours()}:{new Date(content.timestamp).getMinutes()}:{new Date(content.timestamp).getSeconds()}] {content.user}: {content.content}</div>
+              <div key={index}>[{new Date(content.timestamp).getHours()}:{new Date(content.timestamp).getMinutes()}:{new Date(content.timestamp).getSeconds()}] {content.user}: {content.content}</div>
               ) 
             )
           }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { NearContext } from '@/context';
 import { HelloNearContract } from '../config';
+import { useRouter } from 'next/router';
 
 const CONTRACT = HelloNearContract;
 
@@ -16,6 +17,7 @@ export default function Yapper() {
   const [isChat, setIsChat] = useState(false)
   const [yip, setYip] = useState("")
   const [counter, setCounter] = useState(0)
+  const router = useRouter();
 
   const getGreeting = async () => {
     if (!wallet) return;
@@ -531,6 +533,9 @@ export default function Yapper() {
     </body>
     </html>
   `;
+  const redirectToLogout = () => {
+    router.push("/logout")
+  }
 
   const clicked = () => {
     console.log(yip, "hiudsoisado");
@@ -556,8 +561,8 @@ export default function Yapper() {
           <input onChange={(e) => setYip(e.target.value)} maxLength={75} name='yap' className='yap-input pixel-corners' />
           <div className='yap-send pixel-corners' onClick={clicked}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m2 21l21-9L2 3v7l15 2l-15 2z"/></svg></div> 
           <div onClick={showChat} className='image-1'></div>
-          <div className='logout'>
-          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5M4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4z"/></svg>
+          <div onClick={redirectToLogout} className='logout pixel-corners'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" viewBox="0 0 24 24"><path fill="currentColor" d="m17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5M4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4z"/></svg>
           </div>
       </div>
       </div>

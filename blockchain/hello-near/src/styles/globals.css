@@ -328,6 +328,12 @@ body {
   }
 }
 .logout {
-  height: 64px;
-  width: 64px;
+  height: 72px;
+  width: 72px;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  border: black 2px solid;
+  min-width: 72px;
+  background-color: #A0153E;
 }

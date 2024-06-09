@@ -97,7 +97,7 @@ export default function Yapper() {
 
     var pscale = 5;
     var velocity = 3;
-    var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background.png", -100, -200, 1906*4, 1058*4, 0, 0, 1906, 1058);
+    var background = new Sprite("https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/background1.png", -100, -200, 1906*4, 1058*4, 0, 0, 1906, 1058);
     var playerlocation = {
       x: 0,
       y: 0

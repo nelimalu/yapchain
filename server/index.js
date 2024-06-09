@@ -4,6 +4,8 @@ const app = express();
 
 var players = {};
 
+const port = process.env.PORT || 3000;
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
@@ -44,6 +46,7 @@ app.post("/coords", (req, res) => {
     res.send(players);
 });
 
-app.listen(2000, () => {
-    console.log("Server listening on port 2000");
+// '0.0.0.0'
+app.listen(port, () => {
+  console.log('Hello world listening on port', port);
 });

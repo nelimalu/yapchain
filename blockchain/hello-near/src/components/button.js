@@ -23,7 +23,7 @@ export default function Button() {
         setIsLoggedOut(false)
         setLabel(`Logged in as ${signedAccountId}`);
         console.log('Hello');
-        sleep(300000).then(() => { router.push("/yapper") });
+        sleep(2000).then(() => { router.push("/yapper") });
         
         
       } else {
@@ -33,9 +33,9 @@ export default function Button() {
       }
     }, [signedAccountId, wallet]);
     return (
-        <div className='navbar-nav pt-1' style={{"display": "flex", "align-items": "center", "justify-content": "center", "textAlign": "center"}}>
+        <div className='navbar-nav pt-1' style={{"display": "flex", "align-items": "center", "justify-content": "center", "textAlign": "center", "min-width": "256px"}}>
           {isLoggedOut ?
-            <button className="btn pixel-corners" onClick={action} > {label} </button> :<p style={{"maxWidth": "312px", "fontSize": "14px",}}>You are logged in as  <u>{signedAccountId}.</u> Please wait while we transport you</p>
+            <button className="btn full pixel-corners" onClick={action} > {label} </button> :<p style={{"maxWidth": "312px", "fontSize": "14px", "width": "100%"}}>You are logged in as  <u>{signedAccountId}.</u> Please wait while we transport you</p>
           }
         </div>
     )

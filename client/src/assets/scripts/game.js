@@ -6,14 +6,9 @@ water=1;
 
 var c = canvas.getContext('2d');
 c.imageSmoothingEnabled = false;
-
-
-
+const keys = new Set();
+var wasd = 0; 
 function isInBounds(px, py) {
-
-
-
-
   
   for(let i = 0; i < rectangles.length; i++) {
     let len = rectangles[i][2];
@@ -231,23 +226,26 @@ class Player {
 
 window.addEventListener("keydown", function(event) {
   music.volume = 0.5;
-  music.play(); 
-  steps.play(); 
+  // music.play(); 
     if (event.key == "w" || event.key == "ArrowUp") {  // W key
       player.pressed[2] = true;
-
+      keys.add(event.key);
     }
 
     if (event.key == "s" || event.key == "ArrowDown") {  // S key
       player.pressed[3] = true;
+      keys.add(event.key);
     }
 
     if (event.key == "a" || event.key == "ArrowLeft") {  // A key
       player.pressed[0] = true;
+      keys.add(event.key);
     }
 
     if (event.key == "d" || event.key == "ArrowRight") {  // D key
       player.pressed[1] = true;
+      keys.add(event.key);
+
     }
   
 });
@@ -259,18 +257,26 @@ window.addEventListener("keyup", function(event) {
   steps.pause();
     if (event.key == "w" || event.key == "ArrowUp") {
       player.pressed[2] = false;
+      keys.delete(event.key);
+
     }
 
     if (event.key == "s" || event.key == "ArrowDown") {
       player.pressed[3] = false;
+      keys.delete(event.key);
+
     }
 
     if (event.key == "a" || event.key == "ArrowLeft") {
       player.pressed[0] = false;
+      keys.delete(event.key);
+
     }
 
     if (event.key == "d" || event.key == "ArrowRight") {
       player.pressed[1] = false;
+      keys.delete(event.key);
+
     }
 });
 
@@ -312,30 +318,6 @@ var rectangles = [
   [1000, 515, 10, 100],//billiards
   [850, 515, 150, 10],//billiards
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // [-35, 610, 1000, 10],
-  // [300, 100, 1000, 10],
-  // [1500, 900, 1000, 10],
-
-  // [-35, 610, 1350, 10],
-  // [-35, 610, 1350, 10],
-
-
 ];
 
 
@@ -373,6 +355,12 @@ function animate() {
   // }
   // // console.log(isInBounds);
   // console.log(isInBounds());
+
+  if(keys.has("w") || keys.has("s") || keys.has("a") || keys.has("d") || keys.has("ArrowUp") || keys.has("ArrowDown") || keys.has("ArrowLeft") || keys.has("ArrowRight")){
+    steps.play();
+  } else {
+    steps.pause();
+  }
 
   player.speak("fuck you")
   foreground.draw();

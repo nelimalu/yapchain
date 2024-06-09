@@ -23,7 +23,7 @@ export default function Yapper() {
     if (!wallet) return;
 
     await wallet.viewMethod({ contractId: CONTRACT, method: 'get_greeting' }).then(
-      greeting => setGreeting(greeting) 
+      greeting => setGreeting(greeting)
     ).then(
       //console.log(greeting)
     )
@@ -178,8 +178,8 @@ export default function Yapper() {
           this.text = text;
           if (this.text.length > 75)
             this.text = this.text.substring(0, 75) + "...";
-          this.x = x + window.innerWidth / 2 - 8 * pscale;
-          this.y = y + window.innerHeight / 2 - 11 * pscale;
+          this.x = x;
+          this.y = y;
           this.sprite = new Sprite(...speechSprites[this.getSize()]);
           this.sprite.x += this.x;
           this.sprite.y += this.y;
@@ -196,7 +196,6 @@ export default function Yapper() {
         }
 
         draw() {
-          console.log("drawing...")
           this.sprite.draw();
           c.font = "16px Trebuchet MS";
           c.textAlign = 'center';
@@ -536,7 +535,6 @@ export default function Yapper() {
   const redirectToLogout = () => {
     router.push("/logout")
   }
-
   const clicked = () => {
     console.log(yip, "hiudsoisado");
     setNewGreeting(yip);
@@ -557,6 +555,7 @@ export default function Yapper() {
         style={{ width: '100vw', height: '100vh', border: 'none' }}
       />
       <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center"}}>
+
         <div className='yap-container'>
           <input onChange={(e) => setYip(e.target.value)} maxLength={75} name='yap' className='yap-input pixel-corners' />
           <div className='yap-send pixel-corners' onClick={clicked}><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m2 21l21-9L2 3v7l15 2l-15 2z"/></svg></div> 
@@ -570,7 +569,12 @@ export default function Yapper() {
       {counter>=1 &&
         <div className={`overlay ${isChat ? 'show' : 'hide'}`}>
         <div className={`book ${isChat ? 'show' : 'hide'}`}>
-          <p>text</p>
+          {
+            [...JSON.parse(greeting)].map((content, index) => ( 
+                <div key={index}>[{new Date(content.timestamp).getHours()}:{new Date(content.timestamp).getMinutes()}:{new Date(content.timestamp).getSeconds()}] {content.user}: {content.content}</div>
+              ) 
+            )
+          }
         </div>
       </div>
       }

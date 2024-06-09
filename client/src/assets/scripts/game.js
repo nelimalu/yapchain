@@ -190,7 +190,7 @@ class Player {
 
 
 window.addEventListener("keydown", function(event) {
-  music.volume = 0.1;
+  music.volume = 0.5;
   music.play(); 
   steps.play(); 
 

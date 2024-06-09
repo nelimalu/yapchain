@@ -2,6 +2,7 @@ var canvas = document.querySelector('canvas');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+watercount=0;
 
 var c = canvas.getContext('2d');
 c.imageSmoothingEnabled = false;
@@ -84,6 +85,12 @@ var speechSprites = [
   ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/smallbox.png", -110, -75, 75 * speechscale, 18 * speechscale, 0, 0, 75, 18],
   ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/mediumbox.png", -210, -75, 125 * speechscale, 18 * speechscale, 0, 0, 125, 18],
   ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/largebox.png", -310, -75, 175 * speechscale, 18 * speechscale, 0, 0, 175, 18]
+];
+
+var waters = [
+  ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/water1.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058],
+  ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/water2.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058],
+  ["https://raw.githubusercontent.com/nelimalu/yapchain/main/client/src/assets/images/water3.png", -80, -400, 1906 * 4, 1058 * 4, 0, 0, 1906, 1058]
 ];
 
 
@@ -177,6 +184,7 @@ class Player {
     if (this.pressed[0]&&isInBounds(player.x-4, player.y)) { // left
       background.x += velocity;
       foreground.x += velocity;
+      waters.x += velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][0]+=velocity;
       }
@@ -184,6 +192,7 @@ class Player {
     if (this.pressed[1]&&isInBounds(player.x+4, player.y)) { // right
       background.x -= velocity;
       foreground.x -= velocity;
+      waters.x -= velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][0]-=velocity;
       }
@@ -191,6 +200,7 @@ class Player {
     if (this.pressed[2]&&isInBounds(player.x, player.y-4)) { // up
       background.y += velocity;
       foreground.y += velocity;
+      waters.y += velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][1]+=velocity;
       }
@@ -198,6 +208,7 @@ class Player {
     if (this.pressed[3]&&isInBounds(player.x, player.y+20)) { // down
       background.y -= velocity;
       foreground.y -= velocity;
+      waters.y -= velocity;
       for (let i = 0; i < rectangles.length; i++) {
         rectangles[i][1]-=velocity;
       }
@@ -239,6 +250,7 @@ window.addEventListener("keydown", function(event) {
 
 
 window.addEventListener("keyup", function(event) {
+  steps.pause();
     if (event.key == "w" || event.key == "ArrowUp") {
       player.pressed[2] = false;
     }
@@ -328,11 +340,17 @@ function animate() {
   // c.clearRect(0, 0, innerWidth, innerHeight);
   c.fillStyle = "black";
   background.draw();
+  if(frame%80==0){
+    watercount++;
+    waters[i].draw();
+    watercount%=3;
+  }
   frame++;
   if (frame % 10 == 0) {
     player.cycle++;
     player.cycle %= 3;
   }
+  
   player.draw();
   c.fillStyle="red";
 

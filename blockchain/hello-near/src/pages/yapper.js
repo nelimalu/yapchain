@@ -234,30 +234,105 @@ export default function Yapper() {
           this.playersprites[index].y = window.innerHeight / 2 - 11 * pscale;
         }
 
-        draw() {
-          if (this.pressed[0]) { // left
-            this.fixSprite(6 + this.cycle);
-            this.playersprites[6 + this.cycle].draw();
-            this.lastpress = 6;
-          }
-          else if (this.pressed[1]) { // right
-            this.fixSprite(9 + this.cycle);
-            this.playersprites[9 + this.cycle].draw();
-            this.lastpress = 9;
-          }
-          else if (this.pressed[2]) { // up
-            this.fixSprite(3 + this.cycle);
-            this.playersprites[3 + this.cycle].draw();
-            this.lastpress = 3;
-          }
-          else if (this.pressed[3]) { // down
-            this.fixSprite(this.cycle);
-            this.playersprites[0 + this.cycle].draw();
-            this.lastpress = 0;
-          }
-          else {
-            this.fixSprite(this.lastpress);
-            this.playersprites[this.lastpress].draw();
+    // window.onload = function() {
+
+    //   const tryCoords = async () => {
+    //      const response = await fetch('http://yapper.adaptable.app/coords', {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({ id: "${signedAccountId}", x: playerlocation.x, y: playerlocation.y, direction:player.direction })
+    //     });
+    //     response.json().then(res => {
+    //       console.log(res);
+    //       players = res;
+    //     });
+    //   }
+    //   setInterval(function() {
+    //     tryCoords();
+    //   },1);
+
+      setInterval(function() {
+        console.log(playerlocation.x, playerlocation.y);
+
+        if (player.pressed[0]) { // left
+          background.x += velocity;
+          playerlocation.x -= velocity;
+        }
+        if (player.pressed[1]) { // right
+          background.x -= velocity;
+          playerlocation.x += velocity;
+        }
+        if (player.pressed[2]) { // up
+          background.y += velocity;
+          playerlocation.y -= velocity;
+        }
+        if (player.pressed[3]) { // down
+          background.y -= velocity;
+          playerlocation.y += velocity;
+        }
+      }, 1);
+    };
+
+    window.addEventListener("keydown", function(event) {
+      if (event.key == "w" || event.key == "ArrowUp") {  // W key
+        player.direction = "up-moving"
+        player.pressed[2] = true;
+      }
+      if (event.key == "s" || event.key == "ArrowDown") {  // S key
+        player.pressed[3] = true;
+        player.direction = "down-moving"
+      }
+      if (event.key == "a" || event.key == "ArrowLeft") {  // A key
+        player.direction = "left-moving"
+        player.pressed[0] = true;
+      }
+      if (event.key == "d" || event.key == "ArrowRight") {  // D key
+        player.direction = "right-moving"
+        player.pressed[1] = true;
+      }
+    });
+
+    window.addEventListener("keyup", function(event) {
+      if (event.key == "w" || event.key == "ArrowUp") {
+        player.direction = "up-idle"
+        player.pressed[2] = false;
+      }
+      if (event.key == "s" || event.key == "ArrowDown") {
+        player.direction = "down-idle"
+        player.pressed[3] = false;
+      }
+      if (event.key == "a" || event.key == "ArrowLeft") {
+        player.direction = "left-idle"
+        player.pressed[0] = false;
+      }
+      if (event.key == "d" || event.key == "ArrowRight") {
+        player.direction = "right-idle"
+        player.pressed[1] = false;
+      }
+    });
+
+    var player = new Player();
+    var frame = 0;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      c.clearRect(0, 0, innerWidth, innerHeight);
+      c.fillStyle = "black";
+      c.fillRect(0, 0, canvas.width, canvas.height);
+      background.draw();
+      frame++;
+      if (frame % 10 == 0) {
+        player.cycle++;
+        player.cycle %= 3;
+      }
+
+      Object.keys(players).forEach(function(key) {
+          if (key == "${signedAccountId}") {
+            player.draw();
+          } else {
+            player.playersprites[0].x = players[key].x - playerlocation.x + window.innerWidth / 2 - 8 * pscale;
+            player.playersprites[0].y = players[key].y - playerlocation.y + window.innerHeight / 2 - 11 * pscale;
+            player.playersprites[0].draw();
           }
 
           //check if the boy touches a side
@@ -537,7 +612,8 @@ export default function Yapper() {
       <div style={{"width": "100vw", "display": "flex", "alignItems": "center", "justifyContent": "center"}}>
         <form onSubmit={onFormSubmit} className='yap-container'>
           <input onChange={e => setMessage(e.currentTarget.value)} maxLength={75} name='yap' className='yap-input pixel-corners' />
-          <input className='yap-send pixel-corners' value={"submit!!!"} type='submit' />
+          <div className='yap-send image-1' ></div>
+          <div className='yap-send image-2 pixel-corners'></div>
           </form>
       </div>
     </>
